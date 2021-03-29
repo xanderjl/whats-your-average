@@ -33,10 +33,10 @@ const reducer = (state, action) => {
 
 const inputStyles = {
   variant: "flushed",
-  maxW: "10ch",
   _placeholder: {
     color: "gray.300",
   },
+  maxW: "15ch",
 }
 
 const inputFieldStyles = {
@@ -65,7 +65,7 @@ const IndexPage = () => {
           <VStack align="flex-start" spacing={1}>
             <Flex {...inputFieldStyles}>
               <Text {...headingStyles}>TICKER:</Text>
-              <InputGroup maxW="max-content">
+              <InputGroup>
                 <InputLeftElement>$</InputLeftElement>
                 <Input
                   maxLength={4}
@@ -79,9 +79,11 @@ const IndexPage = () => {
             </Flex>
             <Flex {...inputFieldStyles}>
               <Text {...headingStyles}>AVERAGE COST:</Text>
-              <NumberInput precision={2} variant="flushed" {...inputStyles}>
+              <NumberInput precision={2} variant="flushed">
                 <NumberInputField
+                  maxLength={6}
                   value={average}
+                  {...inputStyles}
                   onChange={e => dispatch({ type: "average", e })}
                 />
                 <InputRightElement>AVG</InputRightElement>
