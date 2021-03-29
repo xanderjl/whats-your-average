@@ -13,27 +13,27 @@ const links = [
   },
 ]
 
+const linkStyles = {
+  _hover: {
+    bg: "white",
+    color: "black",
+  },
+}
+
 const Navbar = () => {
+
   return (
     <Flex>
       <Container maxW="container.xl">
         <Flex justify="space-between" align="center">
-          <Link>
-            <Heading fontWeight={600} p="0.75rem">
+          <Link to="/">
+            <Heading fontWeight={600} p="0.75rem" {...linkStyles}>
               WYA?
             </Heading>
           </Link>
           <Flex>
             {links.map((link, i) => (
-              <Link
-                key={i}
-                to={link.slug}
-                p="1.25rem"
-                _hover={{
-                  bg: "white",
-                  color: "black",
-                }}
-              >
+              <Link key={i} to={link.slug} p="1.25rem" {...linkStyles}>
                 {link.title}
               </Link>
             ))}
