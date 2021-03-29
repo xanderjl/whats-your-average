@@ -1,4 +1,6 @@
 const path = require("path")
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
@@ -8,5 +10,6 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         "@static": path.resolve(__dirname, "static"),
       },
     },
+    plugins: [new NodePolyfillPlugin()],
   })
 }
