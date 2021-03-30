@@ -1,5 +1,7 @@
 import * as React from "react"
-import { Container, Flex, Heading } from "@chakra-ui/react"
+import { useShoppingCart } from "use-shopping-cart"
+import { Container, Flex, Heading, Icon } from "@chakra-ui/react"
+import { FiShoppingCart } from "react-icons/fi"
 import Link from "@components/link"
 
 const links = [
@@ -21,7 +23,7 @@ const linkStyles = {
 }
 
 const Navbar = () => {
-
+  const { cartCount } = useShoppingCart()
   return (
     <Flex>
       <Container maxW="container.xl">
@@ -37,6 +39,9 @@ const Navbar = () => {
                 {link.title}
               </Link>
             ))}
+            <Link to="/checkout" p="1.25rem" {...linkStyles}>
+              Checkout ({cartCount}) <Icon as={FiShoppingCart} />
+            </Link>
           </Flex>
         </Flex>
       </Container>

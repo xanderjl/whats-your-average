@@ -1,5 +1,6 @@
 import React, { useReducer } from "react"
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -41,7 +42,7 @@ const reducer = (state, action) => {
   }
 }
 
-const sizes = ["sm", "md", "lg", "xl", "2xl"]
+const sizes = ["sm", "md", "lg", "xl", "2xl", "3xl"]
 const shirtQuantity = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 const inputStyles = {
@@ -104,13 +105,16 @@ const IndexPage = () => {
               </NumberInput>
             </Flex>
           </VStack>
-          <Flex align="center">
-            <StaticImage
-              src="https://i.pinimg.com/originals/62/98/b0/6298b026a65cf80bcf9dce061e9b79c9.png"
-              alt={`Custom "What's Your Average" t-shirt.`}
-              width={400}
-              height={400}
-            />
+          <Flex direction={{ base: "column", md: "row" }} align="center">
+            <Box p={{ base: "1.25rem 0", md: 0 }}>
+              <StaticImage
+                src="https://files.cdn.printful.com/products/71/4017_1581408781.jpg"
+                alt={`Custom "What's Your Average" t-shirt.`}
+                objectPosition="center"
+                width={400}
+                height={400}
+              />
+            </Box>
             <VStack align="flex-start" spacing={2} pl={{ base: 0, md: "2rem" }}>
               <Flex align="center">
                 <Text {...headingStyles}>SIZE:</Text>
@@ -160,7 +164,7 @@ const IndexPage = () => {
                         currency: "USD",
                         image: "",
                       },
-                      quantity
+                      parseInt(quantity)
                     )
                   }
                 >

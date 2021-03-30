@@ -9,6 +9,7 @@
     "@chakra-ui/react": "^1.4.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "framer-motion": "^4",
     "gatsby": "^3.1.2",
@@ -26,6 +27,7 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^6.15.5",
+    "react-icons": "^4.2.0",
     "use-shopping-cart": "^2.4.3"
   },
   "devDependencies": {
