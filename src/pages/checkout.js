@@ -1,14 +1,7 @@
 import * as React from "react"
 import { useShoppingCart } from "use-shopping-cart"
 import Layout from "@components/layout"
-import {
-  Box,
-  Container,
-  Grid,
-  VStack,
-  GridItem,
-  Heading,
-} from "@chakra-ui/react"
+import { Container, Grid, GridItem, Heading } from "@chakra-ui/react"
 import CheckoutForm from "@components/checkoutForm"
 import OrderSummaryTable from "../components/orderSummaryTable"
 
