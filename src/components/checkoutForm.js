@@ -11,7 +11,7 @@ import {
 
 const formControlStyles = {
   display: "flex",
-  alignItems: "flex-end",
+  alignItems: "center",
   justifyContent: "space-between",
 }
 
@@ -24,6 +24,7 @@ const formLabelStyles = {
 const inputStyles = {
   variant: "flushed",
   minW: "calc(100% - 10ch)",
+  p: "0.5rem",
 }
 
 const CheckoutForm = () => {
@@ -92,15 +93,7 @@ const CheckoutForm = () => {
         </Box>
       </FormControl>
       <FormControl {...formControlStyles}>
-        <Button
-          type="submit"
-          variant="outline"
-          borderRadius={0}
-          p="0.5rem"
-          fontSize="lg"
-          fontWeight={400}
-          _hover={{ bg: "white", color: "black" }}
-        >
+        <Button type="submit" variant="outline">
           Place Order
         </Button>
       </FormControl>

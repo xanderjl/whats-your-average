@@ -30,12 +30,7 @@ const OrderSummaryTable = ({ tableDetails }) => {
               <Td>
                 <Button
                   variant="outline"
-                  borderRadius={0}
-                  p="0.5rem"
                   size="sm"
-                  fontSize="lg"
-                  fontWeight={400}
-                  _hover={{ bg: "white", color: "black" }}
                   onClick={() => removeItem(id)}
                 >
                   Remove

@@ -149,11 +149,8 @@ const IndexPage = () => {
               <VStack>
                 <Button
                   variant="outline"
-                  borderRadius={0}
-                  p="0.5rem"
                   fontSize="xl"
                   fontWeight={600}
-                  _hover={{ bg: "white", color: "black" }}
                   onClick={() =>
                     addItem(
                       {
