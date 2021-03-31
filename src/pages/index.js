@@ -30,7 +30,7 @@ const initState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "ticker":
-      return { ...state, ticker: action.e.target.value }
+      return { ...state, ticker: action.e.target.value.toUpperCase() }
     case "average":
       return { ...state, average: action.value }
     case "size":

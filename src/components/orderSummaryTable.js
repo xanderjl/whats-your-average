@@ -2,11 +2,11 @@ import { Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import * as React from "react"
 import { useShoppingCart } from "use-shopping-cart"
 
-const OrderSummaryTable = ({ tableDetails }) => {
+const OrderSummaryTable = props => {
   const { removeItem } = useShoppingCart()
 
   return (
-    <Table size="md">
+    <Table size="md" {...props}>
       <Thead w="inherit" textTransform="uppercase">
         <Tr>
           <Th color="white">Product</Th>
@@ -19,14 +19,15 @@ const OrderSummaryTable = ({ tableDetails }) => {
         </Tr>
       </Thead>
       <Tbody w="inherit">
-        {tableDetails.map(item => {
-          const { name, description, quantity, price, id } = item
+        {props.tableDetails.map(item => {
+          const { name, description, quantity, formattedValue, id } = item
+          console.log(item)
           return (
             <Tr key={id}>
               <Td>{name}</Td>
               <Td display={{ base: "none", md: "block" }}>{description}</Td>
               <Td>{quantity}</Td>
-              <Td>${(price / 100).toFixed(2)}</Td>
+              <Td>{formattedValue}</Td>
               <Td>
                 <Button
                   variant="outline"

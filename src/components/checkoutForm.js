@@ -8,6 +8,7 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react"
+import { useShoppingCart } from "use-shopping-cart"
 
 const formControlStyles = {
   display: "flex",
@@ -27,9 +28,18 @@ const inputStyles = {
   p: "0.5rem",
 }
 
-const CheckoutForm = () => {
+const CheckoutForm = props => {
   const stripe = useStripe()
   const elements = useElements()
+  const { cartDetails } = useShoppingCart()
+
+  fetch("./.netlify/create-payment-intent", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cartDetails),
+  })
 
   const stripeSubmit = async e => {
     e.preventDefault()
@@ -55,7 +65,7 @@ const CheckoutForm = () => {
   }
 
   return (
-    <VStack as="form" spacing={8}>
+    <VStack as="form" spacing={8} {...props}>
       <FormControl {...formControlStyles}>
         <FormLabel {...formLabelStyles}>Name</FormLabel>
         <Input name="name" {...inputStyles} />
