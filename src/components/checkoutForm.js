@@ -33,14 +33,6 @@ const CheckoutForm = props => {
   const elements = useElements()
   const { cartDetails } = useShoppingCart()
 
-  fetch("./.netlify/create-payment-intent", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cartDetails),
-  })
-
   const stripeSubmit = async e => {
     e.preventDefault()
 
