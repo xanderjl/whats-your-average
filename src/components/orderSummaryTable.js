@@ -21,7 +21,7 @@ const OrderSummaryTable = props => {
       <Tbody w="inherit">
         {props.tableDetails.map(item => {
           const { name, description, quantity, formattedValue, id } = item
-          console.log(item)
+
           return (
             <Tr key={id}>
               <Td>{name}</Td>

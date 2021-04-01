@@ -12,6 +12,7 @@ const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY)
 const Checkout = () => {
   const { cartDetails } = useShoppingCart()
   const tableDetails = Object.values(cartDetails)
+
   return (
     <Elements stripe={stripePromise}>
       <Layout>

@@ -31,33 +31,48 @@ const inputStyles = {
 const CheckoutForm = props => {
   const stripe = useStripe()
   const elements = useElements()
-  const { cartDetails } = useShoppingCart()
+  const { totalPrice } = useShoppingCart()
 
-  const stripeSubmit = async e => {
-    e.preventDefault()
+  const handleSubmit = async event => {
+    event.preventDefault()
+    try {
+      const cardElement = elements.getElement(CardElement)
 
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return
-    }
-
-    const cardElement = elements.getElement(CardElement)
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    })
-
-    if (error) {
-      console.log({ error })
-    } else {
-      console.log({ paymentMethod })
+      fetch("/.netlify/functions/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(totalPrice),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("DADA LIFE::: ", data)
+          stripe
+            .confirmCardPayment(data.clientSecret, {
+              payment_method: {
+                card: cardElement,
+              },
+            })
+            .then(result => {
+              // TODO: visual feedback in client instead of console logs
+              if (result.error) {
+                console.log("Payment intent confirmation failed.")
+                console.log(result.error.message)
+              } else {
+                console.log("Payment intent confirmed.")
+                console.log(JSON.stringify(result, null, 2))
+              }
+            })
+        })
+        .catch(err => console.log(err))
+    } catch (error) {
+      console.log(error)
     }
   }
 
   return (
-    <VStack as="form" spacing={8} {...props}>
+    <VStack as="form" spacing={8} {...props} onSubmit={handleSubmit}>
       <FormControl {...formControlStyles}>
         <FormLabel {...formLabelStyles}>Name</FormLabel>
         <Input name="name" {...inputStyles} />
@@ -95,7 +110,7 @@ const CheckoutForm = props => {
         </Box>
       </FormControl>
       <FormControl {...formControlStyles}>
-        <Button type="submit" variant="outline">
+        <Button type="submit" disabled={!stripe} variant="outline">
           Place Order
         </Button>
       </FormControl>
