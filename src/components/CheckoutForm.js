@@ -1,4 +1,5 @@
 import * as React from "react"
+import { navigate } from "gatsby"
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
   VStack,
 } from "@chakra-ui/react"
 import { useShoppingCart } from "use-shopping-cart"
@@ -32,6 +34,7 @@ const CheckoutForm = props => {
   const stripe = useStripe()
   const elements = useElements()
   const { totalPrice } = useShoppingCart()
+  const toast = useToast()
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -47,7 +50,6 @@ const CheckoutForm = props => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log("DADA LIFE::: ", data)
           stripe
             .confirmCardPayment(data.clientSecret, {
               payment_method: {
@@ -55,13 +57,16 @@ const CheckoutForm = props => {
               },
             })
             .then(result => {
-              // TODO: visual feedback in client instead of console logs
               if (result.error) {
-                console.log("Payment intent confirmation failed.")
-                console.log(result.error.message)
+                toast({
+                  title: "UH OH, SOMETHING WENT WRONG.",
+                  description: result.error.message,
+                  status: "error",
+                  duration: 10000,
+                  isClosable: true,
+                })
               } else {
-                console.log("Payment intent confirmed.")
-                console.log(JSON.stringify(result, null, 2))
+                navigate("/success")
               }
             })
         })

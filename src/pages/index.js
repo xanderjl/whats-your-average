@@ -16,8 +16,8 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useShoppingCart } from "use-shopping-cart"
-import Layout from "@components/layout"
-import SEO from "@components/seo"
+import Layout from "@/components/Layout"
+import SEO from "@/components/SEO"
 import { StaticImage } from "gatsby-plugin-image"
 
 const initState = {
@@ -39,6 +39,50 @@ const reducer = (state, action) => {
       return { ...state, quantity: action.e.target.value }
     default:
       throw new Error()
+  }
+}
+
+const tickerStyles = ticker => {
+  switch (ticker.length) {
+    case 4:
+      return {
+        fontSize: "48px",
+        y: 18,
+      }
+    case 3:
+      return {
+        fontSize: "60px",
+        y: 24,
+      }
+    case 2:
+      return {
+        fontSize: "64px",
+        y: 26,
+      }
+    default:
+      return {
+        fontSize: "72px",
+        y: 32,
+      }
+  }
+}
+const averageStyles = average => {
+  switch (average.length) {
+    case 6:
+      return {
+        fontSize: "32px",
+        y: 34,
+      }
+    case 5:
+      return {
+        fontSize: "34px",
+        y: 36,
+      }
+    default:
+      return {
+        fontSize: "38px",
+        y: 26,
+      }
   }
 }
 
@@ -106,14 +150,34 @@ const IndexPage = () => {
             </Flex>
           </VStack>
           <Flex direction={{ base: "column", md: "row" }} align="center">
-            <Box p={{ base: "1.25rem 0", md: 0 }}>
-              <StaticImage
-                src="https://files.cdn.printful.com/products/71/4017_1581408781.jpg"
-                alt={`Custom "What's Your Average" t-shirt.`}
-                objectPosition="center"
-                width={400}
-                height={400}
-              />
+            <Box pos="relative" p={{ base: "1.25rem 0", md: 0 }} bg="white">
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                w="50%"
+                zIndex={10}
+                pos="absolute"
+                top="25%"
+                left="50%"
+                transform="translateX(-50%)"
+              >
+                <Heading fontSize={tickerStyles(ticker).fontSize}>
+                  ${ticker}
+                </Heading>
+                <Heading fontSize={averageStyles(average).fontSize}>
+                  {average} AVG
+                </Heading>
+              </Box>
+              <Box flex={1} p="1.5rem">
+                <StaticImage
+                  src="../images/t-shirt.png"
+                  alt={`Custom "What's Your Average" t-shirt.`}
+                  layout="fixed"
+                  placeholder="blurred"
+                  width={400}
+                />
+              </Box>
             </Box>
             <VStack align="flex-start" spacing={2} pl={{ base: 0, md: "2rem" }}>
               <Flex align="center">

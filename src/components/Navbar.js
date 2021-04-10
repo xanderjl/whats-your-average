@@ -2,7 +2,7 @@ import * as React from "react"
 import { useShoppingCart } from "use-shopping-cart"
 import { Container, Flex, Heading, Icon } from "@chakra-ui/react"
 import { FiShoppingCart } from "react-icons/fi"
-import Link from "@components/link"
+import Link from "@/components/Link"
 
 const links = [
   {

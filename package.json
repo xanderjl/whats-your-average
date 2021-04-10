@@ -9,6 +9,7 @@
     "@chakra-ui/react": "^1.4.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@react-pdf/renderer": "^2.0.3",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "framer-motion": "^4",

@@ -1,8 +1,8 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Box, Flex, Text } from "@chakra-ui/layout"
-import Fonts from "@fonts"
-import Navbar from "@components/navbar"
+import Fonts from "@/fonts"
+import Navbar from "@/components/Navbar"
 
 const Layout = ({ children }) => {
   return (

@@ -2,10 +2,10 @@ import * as React from "react"
 import { useShoppingCart } from "use-shopping-cart"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
-import Layout from "@components/layout"
 import { Container, Grid, GridItem, Heading } from "@chakra-ui/react"
-import CheckoutForm from "@components/checkoutForm"
-import OrderSummaryTable from "../components/orderSummaryTable"
+import Layout from "@/components/Layout"
+import CheckoutForm from "@/components/CheckoutForm"
+import OrderSummaryTable from "@/components/OrderSummaryTable"
 
 const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY)
 
