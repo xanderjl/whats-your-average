@@ -150,7 +150,7 @@ const IndexPage = () => {
             </Flex>
           </VStack>
           <Flex direction={{ base: "column", md: "row" }} align="center">
-            <Box pos="relative" p={{ base: "1.25rem 0", md: 0 }} bg="white">
+            <Box pos="relative" m={{ base: "1.25rem 0", md: 0 }} bg="white">
               <Box
                 display="flex"
                 flexDirection="column"
@@ -169,7 +169,7 @@ const IndexPage = () => {
                   {average} AVG
                 </Heading>
               </Box>
-              <Box flex={1} p="1.5rem">
+              <Box maxW="100%" p="1.25rem">
                 <StaticImage
                   src="../images/t-shirt.png"
                   alt={`Custom "What's Your Average" t-shirt.`}

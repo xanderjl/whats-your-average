@@ -19,7 +19,7 @@ const OrderSummaryTable = props => {
         </Tr>
       </Thead>
       <Tbody w="inherit">
-        {props.tableDetails.map(item => {
+        {props.details.map(item => {
           const { name, description, quantity, formattedValue, id } = item
 
           return (

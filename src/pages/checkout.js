@@ -25,7 +25,7 @@ const Checkout = () => {
               <Heading size="md" pb="1rem" textTransform="uppercase">
                 Order Summary:
               </Heading>
-              <OrderSummaryTable tableDetails={tableDetails} />
+              <OrderSummaryTable details={tableDetails} />
             </GridItem>
             <GridItem
               colSpan={{ base: 1, md: 2 }}
