@@ -19,11 +19,13 @@ import { useShoppingCart } from "use-shopping-cart"
 import Layout from "@/components/Layout"
 import SEO from "@/components/SEO"
 import { StaticImage } from "gatsby-plugin-image"
+import { variantIDs, quantities, variantsBySize } from "@/lib/shirtDetails"
 
 const initState = {
   ticker: "WYAV",
   average: "10.00",
-  size: "md",
+  size: "M",
+  variant_id: 0,
   quantity: 1,
 }
 
@@ -34,7 +36,11 @@ const reducer = (state, action) => {
     case "average":
       return { ...state, average: action.value }
     case "size":
-      return { ...state, size: action.e.target.value }
+      return {
+        ...state,
+        size: action.e.target.value,
+        variant_id: variantsBySize[action.e.target.value],
+      }
     case "quantity":
       return { ...state, quantity: action.e.target.value }
     default:
@@ -86,15 +92,12 @@ const averageStyles = average => {
   }
 }
 
-const sizes = ["sm", "md", "lg", "xl", "2xl", "3xl"]
-const shirtQuantity = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 const inputStyles = {
   variant: "flushed",
   _placeholder: {
     color: "gray.300",
   },
-  maxW: "10ch",
+  maxW: "12ch",
 }
 
 const inputFieldStyles = {
@@ -185,14 +188,21 @@ const IndexPage = () => {
                 <Select
                   variant="flushed"
                   textTransform="uppercase"
-                  value={size}
+                  defaultValue={size}
                   onChange={e => dispatch({ type: "size", e })}
                 >
-                  {sizes.map((size, i) => (
-                    <option key={i} value={size}>
-                      {size}
-                    </option>
-                  ))}
+                  {variantIDs.map((variant, i) => {
+                    return (
+                      <Box
+                        as="option"
+                        color="black"
+                        key={i}
+                        value={variant.size}
+                      >
+                        {variant.size}
+                      </Box>
+                    )
+                  })}
                 </Select>
               </Flex>
               <Flex align="center" pb="2rem">
@@ -200,13 +210,12 @@ const IndexPage = () => {
                 <Select
                   variant="flushed"
                   textTransform="uppercase"
-                  value={quantity}
                   onChange={e => dispatch({ type: "quantity", e })}
                 >
-                  {shirtQuantity.map((quantity, i) => (
-                    <option key={i} value={quantity}>
+                  {quantities.map((quantity, i) => (
+                    <Box as="option" color="black" key={i} value={quantity}>
                       {quantity}
-                    </option>
+                    </Box>
                   ))}
                 </Select>
               </Flex>

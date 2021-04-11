@@ -1,4 +1,4 @@
-export default {
+const styles = {
   global: {
     "html, body": {
       bg: "black",
@@ -8,3 +8,5 @@ export default {
     },
   },
 }
+
+export default styles

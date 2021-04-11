@@ -1,4 +1,4 @@
-export default {
+const Button = {
   baseStyle: {
     borderRadius: 0,
     p: "0.5rem",
@@ -10,3 +10,5 @@ export default {
     },
   },
 }
+
+export default Button
