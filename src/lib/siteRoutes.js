@@ -1,6 +1,6 @@
 import { FiShoppingCart } from "react-icons/fi"
 
-export default [
+const siteRoutes = [
   {
     title: "Home",
     slug: "/",
@@ -16,3 +16,5 @@ export default [
     hasCount: true,
   },
 ]
+
+export default siteRoutes
