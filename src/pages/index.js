@@ -19,13 +19,19 @@ import { useShoppingCart } from "use-shopping-cart"
 import Layout from "@/components/Layout"
 import SEO from "@/components/SEO"
 import { StaticImage } from "gatsby-plugin-image"
-import { variantIDs, quantities, variantsBySize } from "@/lib/shirtDetails"
+import {
+  variantIDs,
+  quantities,
+  variantsBySize,
+  costBySize,
+} from "@/lib/shirtDetails"
 
 const initState = {
   ticker: "WYAV",
   average: "10.00",
-  size: "M",
-  variant_id: 0,
+  size: variantIDs[1].size,
+  variant_id: variantIDs[1].variant_id,
+  cost: variantIDs[1].cost,
   quantity: 1,
 }
 
@@ -40,6 +46,7 @@ const reducer = (state, action) => {
         ...state,
         size: action.e.target.value,
         variant_id: variantsBySize[action.e.target.value],
+        cost: costBySize[action.e.target.value],
       }
     case "quantity":
       return { ...state, quantity: action.e.target.value }
@@ -113,7 +120,7 @@ const headingStyles = {
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(reducer, initState)
-  const { ticker, average, size, quantity } = state
+  const { ticker, average, size, quantity, cost } = state
   const { addItem } = useShoppingCart()
 
   return (
@@ -205,7 +212,7 @@ const IndexPage = () => {
                   })}
                 </Select>
               </Flex>
-              <Flex align="center" pb="2rem">
+              <Flex align="center">
                 <Text {...headingStyles}>QUANTITY:</Text>
                 <Select
                   variant="flushed"
@@ -219,6 +226,11 @@ const IndexPage = () => {
                   ))}
                 </Select>
               </Flex>
+              <Flex align="center" pb="2rem">
+                <Text {...headingStyles}>
+                  COST: ${(cost * quantity).toFixed(2)}
+                </Text>
+              </Flex>
               <VStack>
                 <Button
                   variant="outline"
@@ -230,7 +242,7 @@ const IndexPage = () => {
                         name: "Custom WYA T-shirt",
                         description: `Customized t-shirt. Reads: $${ticker} / ${average} AVG`,
                         id: "",
-                        price: 2300,
+                        price: cost * 100,
                         currency: "USD",
                         image: "",
                       },
