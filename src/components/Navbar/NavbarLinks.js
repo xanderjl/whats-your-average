@@ -16,7 +16,7 @@ const NavbarLinks = ({ isOpen }) => {
   return (
     <Stack
       spacing={0}
-      display={{ base: isOpen ? "block" : "none", md: "block" }}
+      display={{ base: isOpen ? "flex" : "none", md: "flex" }}
       direction={{ base: "column", md: "row" }}
       wrap="wrap"
     >

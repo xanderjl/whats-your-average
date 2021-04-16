@@ -1,10 +1,12 @@
 import React, { useReducer } from "react"
+import { navigate } from "gatsby"
 import {
   Box,
   Button,
   Container,
   Flex,
   Heading,
+  Icon,
   Input,
   InputGroup,
   InputLeftElement,
@@ -25,6 +27,7 @@ import {
   variantsBySize,
   costBySize,
 } from "@/lib/shirtDetails"
+import { FiShoppingCart } from "react-icons/fi"
 
 const initState = {
   ticker: "WYAV",
@@ -236,7 +239,7 @@ const IndexPage = () => {
                   variant="outline"
                   fontSize="xl"
                   fontWeight={600}
-                  onClick={() =>
+                  onClick={() => {
                     addItem(
                       {
                         name: "Custom WYA T-shirt",
@@ -248,9 +251,10 @@ const IndexPage = () => {
                       },
                       parseInt(quantity)
                     )
-                  }
+                    navigate("/checkout")
+                  }}
                 >
-                  ADD TO CART
+                  ADD TO CART<Icon as={FiShoppingCart} ml="0.5rem" />
                 </Button>
               </VStack>
             </VStack>

@@ -16,13 +16,21 @@ const Navbar = () => {
   return (
     <Flex>
       <Container maxW="container.xl">
-        <Flex justify="space-between" align="center">
-          <Link to="/">
-            <Heading fontWeight={600} p="0.5rem" {...linkStyles}>
-              WYA?
-            </Heading>
-          </Link>
-          <ToggleButton isOpen={isOpen} clickHandler={() => setOpen(!isOpen)} />
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+        >
+          <Flex justify="space-between" align="center">
+            <Link to="/">
+              <Heading fontWeight={600} p="0.5rem" {...linkStyles}>
+                WYA?
+              </Heading>
+            </Link>
+            <ToggleButton
+              isOpen={isOpen}
+              clickHandler={() => setOpen(!isOpen)}
+            />
+          </Flex>
           <NavbarLinks isOpen={isOpen} />
         </Flex>
       </Container>
