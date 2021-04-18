@@ -16,20 +16,13 @@ exports.handler = async ({ body, headers }) => {
     )
 
     // only do stuff if this is a successful Stripe Checkout purchase
-    if (stripeEvent.type === "checkout.session.completed") {
+    if (stripeEvent.type === "payment_intent.succeeded") {
       const eventObject = stripeEvent.data.object
-      const items = eventObject.display_items
       const shippingDetails = eventObject.shipping
+      console.log(eventObject)
 
-      // Send and email to our fulfillment provider using Sendgrid.
-      const purchase = { items, shippingDetails }
-      const msg = {
-        to: process.env.FULFILLMENT_EMAIL_ADDRESS,
-        from: process.env.FROM_EMAIL_ADDRESS,
-        subject: `New purchase from ${shippingDetails.name}`,
-        text: JSON.stringify(purchase, null, 2),
-      }
-      await sgMail.send(msg)
+      // TODO: hit Printful API with an order using stripe shipping details
+      // fetch("https://api.printful.com/orders")
     }
 
     return {
