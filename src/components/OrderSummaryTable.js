@@ -10,9 +10,7 @@ const OrderSummaryTable = props => {
       <Thead w="inherit" textTransform="uppercase">
         <Tr>
           <Th color="white">Product</Th>
-          <Th color="white" display={{ base: "none", md: "block" }}>
-            Description
-          </Th>
+          <Th color="white">Description</Th>
           <Th color="white">Quantity</Th>
           <Th color="white">Price</Th>
           <Th />
@@ -25,7 +23,7 @@ const OrderSummaryTable = props => {
           return (
             <Tr key={id}>
               <Td>{name}</Td>
-              <Td display={{ base: "none", md: "block" }}>{description}</Td>
+              <Td>{description}</Td>
               <Td>{quantity}</Td>
               <Td>{formattedValue}</Td>
               <Td>

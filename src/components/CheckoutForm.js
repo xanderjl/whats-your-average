@@ -5,18 +5,16 @@ import {
   Box,
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
+  Stack,
   useToast,
   VStack,
 } from "@chakra-ui/react"
+import { useForm } from "react-hook-form"
 import { useShoppingCart } from "use-shopping-cart"
-
-const formControlStyles = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-}
 
 const formLabelStyles = {
   flex: 1,
@@ -26,7 +24,6 @@ const formLabelStyles = {
 
 const inputStyles = {
   variant: "flushed",
-  minW: "calc(100% - 10ch)",
   p: "0.5rem",
 }
 
@@ -35,9 +32,13 @@ const CheckoutForm = props => {
   const elements = useElements()
   const { totalPrice } = useShoppingCart()
   const toast = useToast()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm()
 
-  const handleSubmit = async event => {
-    event.preventDefault()
+  const onSubmit = async values => {
     try {
       const cardElement = elements.getElement(CardElement)
 
@@ -46,7 +47,7 @@ const CheckoutForm = props => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(totalPrice),
+        body: JSON.stringify({ totalPrice, values }),
       })
         .then(res => res.json())
         .then(data => {
@@ -77,20 +78,111 @@ const CheckoutForm = props => {
   }
 
   return (
-    <VStack as="form" spacing={8} {...props} onSubmit={handleSubmit}>
-      <FormControl {...formControlStyles}>
+    <VStack
+      as="form"
+      align="stretch"
+      spacing={8}
+      {...props}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <FormControl isInvalid={errors.name}>
         <FormLabel {...formLabelStyles}>Name</FormLabel>
-        <Input name="name" {...inputStyles} />
+        <Input
+          name="name"
+          {...inputStyles}
+          {...register("name", { required: true })}
+        />
+        <FormErrorMessage>
+          {errors.name && "This field is required."}
+        </FormErrorMessage>
       </FormControl>
-      <FormControl {...formControlStyles}>
+      <FormControl isInvalid={errors.email}>
         <FormLabel {...formLabelStyles}>Email</FormLabel>
-        <Input type="email" name="email" {...inputStyles} />
+        <Input
+          type="email"
+          name="email"
+          {...inputStyles}
+          {...register("email", { required: true })}
+        />
+        <FormErrorMessage>
+          {errors.email && "This field is required."}
+        </FormErrorMessage>
       </FormControl>
-      <FormControl {...formControlStyles}>
+      <FormControl>
         <FormLabel {...formLabelStyles}>Phone</FormLabel>
-        <Input name="phone" {...inputStyles} />
+        <Input name="phone" {...inputStyles} {...register("phone")} />
       </FormControl>
-      <FormControl {...formControlStyles}>
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={{ base: 8, md: 4 }}
+      >
+        <FormControl isInvalid={errors.city}>
+          <FormLabel {...formLabelStyles}>City</FormLabel>
+          <Input
+            name="city"
+            {...inputStyles}
+            {...register("city", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.city && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.country}>
+          <FormLabel {...formLabelStyles}>Country</FormLabel>
+          <Input
+            name="country"
+            {...inputStyles}
+            {...register("country", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.country && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+      </Stack>
+      <Heading size="md">Address:</Heading>
+      <FormControl isInvalid={errors.address}>
+        <FormLabel {...formLabelStyles}>Line 1</FormLabel>
+        <Input
+          name="address"
+          {...inputStyles}
+          {...register("address", { required: true })}
+        />
+        <FormErrorMessage>
+          {errors.address && "This field is required."}
+        </FormErrorMessage>
+      </FormControl>
+      <FormControl>
+        <FormLabel {...formLabelStyles}>Line 2</FormLabel>
+        <Input name="address_2" {...inputStyles} {...register("address_2")} />
+      </FormControl>
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={{ base: 8, md: 4 }}
+      >
+        <FormControl isInvalid={errors.postal_code}>
+          <FormLabel {...formLabelStyles}>Postal Code</FormLabel>
+          <Input
+            name="postal_code"
+            {...inputStyles}
+            {...register("postal_code", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.postal_code && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.state}>
+          <FormLabel {...formLabelStyles}>State/Province</FormLabel>
+          <Input
+            name="state"
+            {...inputStyles}
+            {...register("state", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.state && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+      </Stack>
+      <FormControl>
         <FormLabel {...formLabelStyles}>Card Details</FormLabel>
         <Box
           flex={1}
@@ -114,8 +206,13 @@ const CheckoutForm = props => {
           />
         </Box>
       </FormControl>
-      <FormControl {...formControlStyles}>
-        <Button type="submit" disabled={!stripe} variant="outline">
+      <FormControl>
+        <Button
+          type="submit"
+          disabled={!stripe}
+          variant="outline"
+          isLoading={isSubmitting}
+        >
           Place Order
         </Button>
       </FormControl>
