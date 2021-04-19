@@ -123,7 +123,7 @@ const headingStyles = {
 
 const IndexPage = () => {
   const [state, dispatch] = useReducer(reducer, initState)
-  const { ticker, average, size, quantity, cost } = state
+  const { ticker, average, size, quantity, cost, variant_id } = state
   const { addItem } = useShoppingCart()
 
   return (
@@ -246,15 +246,17 @@ const IndexPage = () => {
                         description: `Customized t-shirt. Reads: $${ticker} / ${average} AVG`,
                         id: "",
                         price: cost * 100,
-                        currency: "USD",
+                        currency: "CAD",
                         image: "",
+                        sku: variant_id,
                       },
                       parseInt(quantity)
                     )
                     navigate("/checkout")
                   }}
                 >
-                  ADD TO CART<Icon as={FiShoppingCart} ml="0.5rem" />
+                  ADD TO CART
+                  <Icon as={FiShoppingCart} ml="0.5rem" />
                 </Button>
               </VStack>
             </VStack>

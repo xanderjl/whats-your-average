@@ -30,7 +30,7 @@ const inputStyles = {
 const CheckoutForm = props => {
   const stripe = useStripe()
   const elements = useElements()
-  const { totalPrice } = useShoppingCart()
+  const { totalPrice, cartDetails } = useShoppingCart()
   const toast = useToast()
   const {
     register,
@@ -47,7 +47,7 @@ const CheckoutForm = props => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ totalPrice, values }),
+        body: JSON.stringify({ totalPrice, values, cartDetails }),
       })
         .then(res => res.json())
         .then(data => {
@@ -171,11 +171,12 @@ const CheckoutForm = props => {
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={errors.state}>
-          <FormLabel {...formLabelStyles}>State/Province</FormLabel>
+          <FormLabel {...formLabelStyles}>State/Province Code</FormLabel>
           <Input
             name="state"
+            maxLength={2}
             {...inputStyles}
-            {...register("state", { required: true })}
+            {...register("state", { required: true, maxLength: 2 })}
           />
           <FormErrorMessage>
             {errors.state && "This field is required."}

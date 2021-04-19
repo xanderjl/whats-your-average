@@ -12,27 +12,27 @@ export const variantIDs = [
   {
     size: "S",
     variant_id: 474,
-    cost: 25,
+    cost: 35,
   },
   {
     size: "M",
     variant_id: 505,
-    cost: 25,
+    cost: 35,
   },
   {
     size: "L",
     variant_id: 536,
-    cost: 25,
+    cost: 35,
   },
   {
     size: "XL",
     variant_id: 567,
-    cost: 25,
+    cost: 35,
   },
   {
     size: "2XL",
     variant_id: 598,
-    cost: 28.5,
+    cost: 40,
   },
   // {
   //   size: "3XL",
