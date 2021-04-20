@@ -30,7 +30,7 @@ exports.handler = async ({ body, headers }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${auth}`,
+          Authorization: "Basic " + auth,
         },
         body: JSON.stringify({
           recipient: {
