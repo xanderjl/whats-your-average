@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { navigate } from "gatsby"
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
 import {
@@ -9,12 +9,19 @@ import {
   FormLabel,
   Heading,
   Input,
+  Select,
   Stack,
   useToast,
   VStack,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
 import { useShoppingCart } from "use-shopping-cart"
+import csc from "country-state-city"
+
+const acceptedCountries = ["CA", "US", "AU"]
+const countryInfo = acceptedCountries.map(
+  country => csc.getAllCountries().filter(c => c.isoCode === country)[0]
+)
 
 const formLabelStyles = {
   flex: 1,
@@ -37,6 +44,8 @@ const CheckoutForm = props => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm()
+  const [country, setCountry] = useState(acceptedCountries[0])
+  const [state, setState] = useState("")
 
   const onSubmit = async values => {
     try {
@@ -129,11 +138,22 @@ const CheckoutForm = props => {
         </FormControl>
         <FormControl isInvalid={errors.country}>
           <FormLabel {...formLabelStyles}>Country</FormLabel>
-          <Input
+          <Select
+            variant="flushed"
             name="country"
-            {...inputStyles}
+            value={country}
             {...register("country", { required: true })}
-          />
+            onChange={e => setCountry(e.target.value)}
+          >
+            {countryInfo.map((country, i) => {
+              const { name, isoCode } = country
+              return (
+                <Box key={i} as="option" value={isoCode} color="black">
+                  {name}
+                </Box>
+              )
+            })}
+          </Select>
           <FormErrorMessage>
             {errors.country && "This field is required."}
           </FormErrorMessage>
@@ -172,12 +192,22 @@ const CheckoutForm = props => {
         </FormControl>
         <FormControl isInvalid={errors.state}>
           <FormLabel {...formLabelStyles}>State/Province Code</FormLabel>
-          <Input
+          <Select
             name="state"
-            maxLength={2}
-            {...inputStyles}
-            {...register("state", { required: true, maxLength: 2 })}
-          />
+            value={state}
+            variant="flushed"
+            {...register("state", { required: true })}
+            onChange={e => setState(e.target.value)}
+          >
+            {csc.getStatesOfCountry(country).map((state, i) => {
+              const { name, isoCode } = state
+              return (
+                <Box key={i} as="option" value={isoCode} color="black">
+                  {name}
+                </Box>
+              )
+            })}
+          </Select>
           <FormErrorMessage>
             {errors.state && "This field is required."}
           </FormErrorMessage>

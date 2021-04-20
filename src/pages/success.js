@@ -1,6 +1,6 @@
 import * as React from "react"
 import Layout from "@/components/Layout"
-import { Heading } from "@chakra-ui/layout"
+import { Heading, Container } from "@chakra-ui/react"
 import { useShoppingCart } from "use-shopping-cart"
 
 const Success = () => {
@@ -8,7 +8,9 @@ const Success = () => {
   clearCart()
   return (
     <Layout>
-      <Heading>YOU DID IT. THANKS FOR THE MONEY!</Heading>
+      <Container maxW="container.md">
+        <Heading>YOU DID IT. THANKS FOR THE MONEY!</Heading>
+      </Container>
     </Layout>
   )
 }

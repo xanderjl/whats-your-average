@@ -4958,10 +4958,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-country-codes-list@^1.6.8:
-  version "1.6.8"
-  resolved "https://registry.yarnpkg.com/country-codes-list/-/country-codes-list-1.6.8.tgz#c6ff506d3c0511f645fdc0997d0b4fa6773d043e"
-  integrity sha512-wsqH44Yx3pTyPA77jYt2Nxso6kXziMwxI37fJFQLcd/3ome8Gqz6areaeG1w8zfeU9i+cZvJA3k2Mo5EW7rAtg==
+country-state-city@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/country-state-city/-/country-state-city-2.0.0.tgz#e117c658f52ee0c61394b2a768631e03011696f6"
+  integrity sha512-LIWZEHBvmwck4u795eKUZd7N6dUWj5apiqTl/Zl081CIE34ZCy/vC3R6BNbbN5QX3SKkZx49r0vyVDAnesVwHQ==
 
 create-ecdh@^4.0.0:
   version "4.0.4"
