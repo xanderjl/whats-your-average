@@ -18,16 +18,18 @@ exports.handler = async ({ body, headers }) => {
       const auth = Buffer.from(process.env.PRINTFUL_API_KEY).toString("base64")
       const eventObject = stripeEvent.data.object
       const email = eventObject.receipt_email
-      const { variant_id, quantity } = eventObject.metadata
+      const { variant_id, quantity, imageUrl } = eventObject.metadata
+      console.log({ imageUrl })
       const shippingDetails = eventObject.shipping
       const { name, phone, address } = shippingDetails
       const { city, country, line1, line2, postal_code, state } = address
 
+      // Create order on Printful
       await fetch("https://api.printful.com/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Basic " + auth,
+          Authorization: `Basic ${auth}`,
         },
         body: JSON.stringify({
           recipient: {
@@ -47,8 +49,7 @@ exports.handler = async ({ body, headers }) => {
               quantity,
               files: [
                 {
-                  url:
-                    "https://i.pinimg.com/originals/5a/30/20/5a3020152be9cc7487e6312b609a73a2.jpg",
+                  url: imageUrl,
                 },
               ],
             },

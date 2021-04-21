@@ -15,6 +15,7 @@
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "country-state-city": "^2.0.0",
+    "dom-to-image": "^2.6.0",
     "framer-motion": "^4",
     "gatsby": "^3.1.2",
     "gatsby-plugin-gatsby-cloud": "^2.1.0",

@@ -53,12 +53,27 @@ const CheckoutForm = props => {
       const cardElement = elements.getElement(CardElement)
       setLoading(true)
 
-      fetch("/.netlify/functions/create-payment-intent", {
+      const url = new URL("https://api.imgbb.com/1/upload")
+      url.search = new URLSearchParams({
+        key: process.env.GATSBY_IMGBB_API_KEY,
+        image:
+          "https://yt3.ggpht.com/ytc/AAUvwni-59youqN90t8hYmHK8VXdAj-YQ6qWHau5_kUA=s900-c-k-c0x00ffffff-no-rj",
+        expiration: 600,
+      })
+      const imageUrl = await fetch(url, {
+        method: "POST",
+      })
+        .then(res => res.json())
+        .then(({ data }) => {
+          return data.url
+        })
+
+      await fetch("/.netlify/functions/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ totalPrice, values, cartDetails }),
+        body: JSON.stringify({ totalPrice, values, cartDetails, imageUrl }),
       })
         .then(res => res.json())
         .then(data => {

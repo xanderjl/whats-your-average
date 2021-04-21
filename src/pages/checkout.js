@@ -22,7 +22,7 @@ const Checkout = () => {
         <Container maxW="container.md" m="0 auto">
           <VStack alignItems="stretch" justifyContent="stretch" spacing={12}>
             <Box>
-              <Heading size="md" pb="1rem" textTransform="uppercase">
+              <Heading size="xl" pb="1rem" textTransform="uppercase">
                 Order Summary:
               </Heading>
               <OrderSummaryTable details={tableDetails} />
