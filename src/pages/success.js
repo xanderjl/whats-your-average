@@ -9,7 +9,7 @@ const Success = () => {
   return (
     <Layout>
       <Container maxW="container.md">
-        <Heading>YOU DID IT. THANKS FOR THE MONEY!</Heading>
+        <Heading>HEY, YOU DID IT. THANKS FOR THE MONEY!</Heading>
       </Container>
     </Layout>
   )

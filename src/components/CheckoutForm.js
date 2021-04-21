@@ -42,14 +42,16 @@ const CheckoutForm = props => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm()
   const [country, setCountry] = useState(acceptedCountries[0])
   const [state, setState] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = async values => {
     try {
       const cardElement = elements.getElement(CardElement)
+      setLoading(true)
 
       fetch("/.netlify/functions/create-payment-intent", {
         method: "POST",
@@ -68,7 +70,8 @@ const CheckoutForm = props => {
             })
             .then(result => {
               if (result.error) {
-                toast({
+                setLoading(false)
+                return toast({
                   title: "UH OH, SOMETHING WENT WRONG.",
                   description: result.error.message,
                   status: "error",
@@ -76,13 +79,30 @@ const CheckoutForm = props => {
                   isClosable: true,
                 })
               } else {
+                setLoading(false)
                 navigate("/success")
               }
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          setLoading(false)
+          console.log(err)
+          return toast({
+            title: "UH OH, SOMETHING WENT WRONG.",
+            description: err.message,
+            status: "error",
+            duration: 10000,
+            isClosable: true,
+          })
+        })
     } catch (error) {
-      console.log(error)
+      return toast({
+        title: "UH OH, SOMETHING WENT WRONG.",
+        description: error.message,
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+      })
     }
   }
 
@@ -242,7 +262,7 @@ const CheckoutForm = props => {
           type="submit"
           disabled={!stripe}
           variant="outline"
-          isLoading={isSubmitting}
+          isLoading={loading}
         >
           Place Order
         </Button>
