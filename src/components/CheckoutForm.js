@@ -141,21 +141,11 @@ const CheckoutForm = props => {
         <FormLabel {...formLabelStyles}>Phone</FormLabel>
         <Input name="phone" {...inputStyles} {...register("phone")} />
       </FormControl>
+      <Heading size="md">Address:</Heading>
       <Stack
         direction={{ base: "column", md: "row" }}
         spacing={{ base: 8, md: 4 }}
       >
-        <FormControl isInvalid={errors.city}>
-          <FormLabel {...formLabelStyles}>City</FormLabel>
-          <Input
-            name="city"
-            {...inputStyles}
-            {...register("city", { required: true })}
-          />
-          <FormErrorMessage>
-            {errors.city && "This field is required."}
-          </FormErrorMessage>
-        </FormControl>
         <FormControl isInvalid={errors.country}>
           <FormLabel {...formLabelStyles}>Country</FormLabel>
           <Select
@@ -178,38 +168,6 @@ const CheckoutForm = props => {
             {errors.country && "This field is required."}
           </FormErrorMessage>
         </FormControl>
-      </Stack>
-      <Heading size="md">Address:</Heading>
-      <FormControl isInvalid={errors.address}>
-        <FormLabel {...formLabelStyles}>Line 1</FormLabel>
-        <Input
-          name="address"
-          {...inputStyles}
-          {...register("address", { required: true })}
-        />
-        <FormErrorMessage>
-          {errors.address && "This field is required."}
-        </FormErrorMessage>
-      </FormControl>
-      <FormControl>
-        <FormLabel {...formLabelStyles}>Line 2</FormLabel>
-        <Input name="address_2" {...inputStyles} {...register("address_2")} />
-      </FormControl>
-      <Stack
-        direction={{ base: "column", md: "row" }}
-        spacing={{ base: 8, md: 4 }}
-      >
-        <FormControl isInvalid={errors.postal_code}>
-          <FormLabel {...formLabelStyles}>Postal Code</FormLabel>
-          <Input
-            name="postal_code"
-            {...inputStyles}
-            {...register("postal_code", { required: true })}
-          />
-          <FormErrorMessage>
-            {errors.postal_code && "This field is required."}
-          </FormErrorMessage>
-        </FormControl>
         <FormControl isInvalid={errors.state}>
           <FormLabel {...formLabelStyles}>State/Province Code</FormLabel>
           <Select
@@ -230,6 +188,48 @@ const CheckoutForm = props => {
           </Select>
           <FormErrorMessage>
             {errors.state && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+      </Stack>
+      <FormControl isInvalid={errors.address}>
+        <FormLabel {...formLabelStyles}>Line 1</FormLabel>
+        <Input
+          name="address"
+          {...inputStyles}
+          {...register("address", { required: true })}
+        />
+        <FormErrorMessage>
+          {errors.address && "This field is required."}
+        </FormErrorMessage>
+      </FormControl>
+      <FormControl>
+        <FormLabel {...formLabelStyles}>Line 2</FormLabel>
+        <Input name="address_2" {...inputStyles} {...register("address_2")} />
+      </FormControl>
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={{ base: 8, md: 4 }}
+      >
+        <FormControl isInvalid={errors.city}>
+          <FormLabel {...formLabelStyles}>City</FormLabel>
+          <Input
+            name="city"
+            {...inputStyles}
+            {...register("city", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.city && "This field is required."}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={errors.postal_code}>
+          <FormLabel {...formLabelStyles}>Postal Code</FormLabel>
+          <Input
+            name="postal_code"
+            {...inputStyles}
+            {...register("postal_code", { required: true })}
+          />
+          <FormErrorMessage>
+            {errors.postal_code && "This field is required."}
           </FormErrorMessage>
         </FormControl>
       </Stack>
