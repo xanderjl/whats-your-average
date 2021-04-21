@@ -14,7 +14,7 @@ exports.handler = async ({ body, headers }) => {
     )
 
     // only do stuff if this is a successful Stripe Checkout purchase
-    if (stripeEvent.type === "payment_intent.succeeded") {
+    if (stripeEvent.type === "charge.succeeded") {
       const auth = Buffer.from(process.env.PRINTFUL_API_KEY).toString("base64")
       const eventObject = stripeEvent.data.object
       const email = eventObject.receipt_email
