@@ -23,7 +23,7 @@ exports.handler = async ({ body, headers }) => {
       const { name, phone, address } = shippingDetails
       const { city, country, line1, line2, postal_code, state } = address
 
-      fetch("https://api.printful.com/orders", {
+      await fetch("https://api.printful.com/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
