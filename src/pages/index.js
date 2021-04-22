@@ -181,7 +181,7 @@ const IndexPage = () => {
                 left="50%"
                 transform="translateX(-50%)"
               >
-                <Box ref={imgRef}>
+                <Box>
                   <Heading fontSize={tickerStyles(ticker).fontSize}>
                     ${ticker}
                   </Heading>
@@ -278,6 +278,12 @@ const IndexPage = () => {
           </Flex>
         </VStack>
       </Container>
+      <Box pos="absolute" right="100%">
+        <Box ref={imgRef}>
+          <Heading fontSize="120px">${ticker}</Heading>
+          <Heading fontSize="86px">{average} AVG</Heading>
+        </Box>
+      </Box>
     </Layout>
   )
 }
