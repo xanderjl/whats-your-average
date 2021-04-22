@@ -43,6 +43,7 @@ const CheckoutForm = ({ file, ...rest }) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm()
   const [country, setCountry] = useState(acceptedCountries[0])
   const [state, setState] = useState("")
@@ -169,7 +170,10 @@ const CheckoutForm = ({ file, ...rest }) => {
             name="country"
             value={country}
             {...register("country", { required: true })}
-            onChange={e => setCountry(e.target.value)}
+            onChange={e => {
+              setValue("country", e.target.value)
+              setCountry(e.target.value)
+            }}
           >
             {countryInfo.map((country, i) => {
               const { name, isoCode } = country
@@ -191,7 +195,10 @@ const CheckoutForm = ({ file, ...rest }) => {
             value={state}
             variant="flushed"
             {...register("state", { required: true })}
-            onChange={e => setState(e.target.value)}
+            onChange={e => {
+              setValue("state", e.target.value)
+              setState(e.target.value)
+            }}
           >
             {csc.getStatesOfCountry(country).map((state, i) => {
               const { name, isoCode } = state

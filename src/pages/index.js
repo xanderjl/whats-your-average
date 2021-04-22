@@ -330,10 +330,16 @@ const IndexPage = () => {
       </Container>
       <Box pos="absolute" right="100%">
         <Box ref={imgRef} maxW="max-content" textAlign="center">
-          <Heading fontSize={printHeaderStyles(ticker).fontSize}>
+          <Heading
+            fontSize={printHeaderStyles(ticker).fontSize}
+            whiteSpace="nowrap"
+          >
             ${ticker}
           </Heading>
-          <Heading fontSize={printSubheaderStyles(average).fontSize}>
+          <Heading
+            fontSize={printSubheaderStyles(average).fontSize}
+            whiteSpace="nowrap"
+          >
             {average} AVG
           </Heading>
         </Box>
