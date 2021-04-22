@@ -68,7 +68,7 @@ const tickerStyles = ticker => {
       }
     case 3:
       return {
-        fontSize: "60px",
+        fontSize: "56px",
         y: 24,
       }
     case 2:
@@ -83,11 +83,61 @@ const tickerStyles = ticker => {
       }
   }
 }
+
+const printHeaderStyles = ticker => {
+  switch (ticker.length) {
+    case 4:
+      return {
+        fontSize: "120px",
+        y: 18,
+      }
+    case 3:
+      return {
+        fontSize: "140px",
+        y: 24,
+      }
+    case 2:
+      return {
+        fontSize: "160px",
+        y: 26,
+      }
+    default:
+      return {
+        fontSize: "170px",
+        y: 32,
+      }
+  }
+}
+
+const printSubheaderStyles = average => {
+  switch (average.length) {
+    case 7:
+      return {
+        fontSize: "80px",
+      }
+    case 6:
+      return {
+        fontSize: "90px",
+        y: 34,
+      }
+    case 5:
+      return {
+        fontSize: "100px",
+        y: 36,
+      }
+    default:
+      return {
+        fontSize: "105px",
+        y: 26,
+      }
+  }
+}
+
 const averageStyles = average => {
   switch (average.length) {
     case 7:
       return {
-        fonSize: "32px",
+        fontSize: "30px",
       }
     case 6:
       return {
@@ -181,7 +231,7 @@ const IndexPage = () => {
                 left="50%"
                 transform="translateX(-50%)"
               >
-                <Box>
+                <Box textAlign="center">
                   <Heading fontSize={tickerStyles(ticker).fontSize}>
                     ${ticker}
                   </Heading>
@@ -279,9 +329,13 @@ const IndexPage = () => {
         </VStack>
       </Container>
       <Box pos="absolute" right="100%">
-        <Box ref={imgRef}>
-          <Heading fontSize="120px">${ticker}</Heading>
-          <Heading fontSize="86px">{average} AVG</Heading>
+        <Box ref={imgRef} maxW="max-content" textAlign="center">
+          <Heading fontSize={printHeaderStyles(ticker).fontSize}>
+            ${ticker}
+          </Heading>
+          <Heading fontSize={printSubheaderStyles(average).fontSize}>
+            {average} AVG
+          </Heading>
         </Box>
       </Box>
     </Layout>
