@@ -1,6 +1,5 @@
 import {
   Button,
-  Flex,
   Heading,
   StackDivider,
   Table,

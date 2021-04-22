@@ -2,7 +2,7 @@ import * as React from "react"
 import { useShoppingCart } from "use-shopping-cart"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
-import { Box, Container, Heading, toast, VStack } from "@chakra-ui/react"
+import { Box, Container, Heading, VStack } from "@chakra-ui/react"
 import Layout from "@/components/Layout"
 import CheckoutForm from "@/components/CheckoutForm"
 import OrderSummaryTable from "@/components/OrderSummaryTable"
@@ -11,7 +11,7 @@ import Link from "@/components/Link"
 
 const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY)
 
-const Checkout = () => {
+const Checkout = ({ location }) => {
   const { cartDetails, cartCount } = useShoppingCart()
   const tableDetails = Object.values(cartDetails)
 
@@ -32,7 +32,7 @@ const Checkout = () => {
                 Checkout:
               </Heading>
               {cartCount > 0 ? (
-                <CheckoutForm />
+                <CheckoutForm file={location.state.blob} />
               ) : (
                 <Link to="/">
                   <Heading

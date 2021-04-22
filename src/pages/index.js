@@ -1,4 +1,4 @@
-import React, { useReducer } from "react"
+import React, { useReducer, useRef } from "react"
 import { navigate } from "gatsby"
 import {
   Box,
@@ -27,6 +27,7 @@ import {
   variantsBySize,
   costBySize,
 } from "@/lib/shirtDetails"
+import domtoimage from "dom-to-image"
 import { FiShoppingCart } from "react-icons/fi"
 
 const initState = {
@@ -84,6 +85,10 @@ const tickerStyles = ticker => {
 }
 const averageStyles = average => {
   switch (average.length) {
+    case 7:
+      return {
+        fonSize: "32px",
+      }
     case 6:
       return {
         fontSize: "32px",
@@ -124,6 +129,7 @@ const headingStyles = {
 const IndexPage = () => {
   const [state, dispatch] = useReducer(reducer, initState)
   const { ticker, average, size, quantity, cost, variant_id } = state
+  const imgRef = useRef(null)
   const { addItem } = useShoppingCart()
 
   return (
@@ -157,7 +163,7 @@ const IndexPage = () => {
                 value={average}
                 onChange={value => dispatch({ type: "average", value })}
               >
-                <NumberInputField maxLength={6} {...inputStyles} />
+                <NumberInputField maxLength={7} {...inputStyles} />
                 <InputRightElement>AVG</InputRightElement>
               </NumberInput>
             </Flex>
@@ -175,12 +181,14 @@ const IndexPage = () => {
                 left="50%"
                 transform="translateX(-50%)"
               >
-                <Heading fontSize={tickerStyles(ticker).fontSize}>
-                  ${ticker}
-                </Heading>
-                <Heading fontSize={averageStyles(average).fontSize}>
-                  {average} AVG
-                </Heading>
+                <Box ref={imgRef}>
+                  <Heading fontSize={tickerStyles(ticker).fontSize}>
+                    ${ticker}
+                  </Heading>
+                  <Heading fontSize={averageStyles(average).fontSize}>
+                    {average} AVG
+                  </Heading>
+                </Box>
               </Box>
               <Box maxW="100%" p="1.25rem">
                 <StaticImage
@@ -239,7 +247,7 @@ const IndexPage = () => {
                   variant="outline"
                   fontSize="xl"
                   fontWeight={600}
-                  onClick={() => {
+                  onClick={async () => {
                     addItem(
                       {
                         name: "Custom WYA T-shirt",
@@ -252,7 +260,14 @@ const IndexPage = () => {
                       },
                       parseInt(quantity)
                     )
-                    navigate("/checkout")
+                    try {
+                      const blob = await domtoimage.toBlob(imgRef.current, {
+                        quality: 1,
+                      })
+                      navigate("/checkout", { state: { blob } })
+                    } catch (err) {
+                      console.log(err)
+                    }
                   }}
                 >
                   ADD TO CART

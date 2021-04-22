@@ -34,7 +34,7 @@ const inputStyles = {
   p: "0.5rem",
 }
 
-const CheckoutForm = props => {
+const CheckoutForm = ({ file, ...rest }) => {
   const stripe = useStripe()
   const elements = useElements()
   const { totalPrice, cartDetails } = useShoppingCart()
@@ -56,12 +56,13 @@ const CheckoutForm = props => {
       const url = new URL("https://api.imgbb.com/1/upload")
       url.search = new URLSearchParams({
         key: process.env.GATSBY_IMGBB_API_KEY,
-        image:
-          "https://yt3.ggpht.com/ytc/AAUvwni-59youqN90t8hYmHK8VXdAj-YQ6qWHau5_kUA=s900-c-k-c0x00ffffff-no-rj",
         expiration: 600,
       })
+      const body = new FormData()
+      body.append("image", file)
       const imageUrl = await fetch(url, {
         method: "POST",
+        body,
       })
         .then(res => res.json())
         .then(({ data }) => {
@@ -126,7 +127,7 @@ const CheckoutForm = props => {
       as="form"
       align="stretch"
       spacing={8}
-      {...props}
+      {...rest}
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormControl isInvalid={errors.name}>
