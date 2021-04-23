@@ -3,7 +3,7 @@ import { render } from "react-dom"
 import Textfit from "react-textfit"
 import { Box, Heading } from "@chakra-ui/layout"
 
-const fuckitUP = {
+const styles = {
   w: "inherit",
   color: "white",
   fontFamily: "sans-serif",
@@ -12,12 +12,12 @@ const fuckitUP = {
 const App = () => {
   return (
     <Box width="100vw" height="100vh">
-      <Heading {...fuckitUP}>
+      <Heading {...styles}>
         <Textfit mode="single" max={5000}>
           $ {window.ticker}
         </Textfit>
       </Heading>
-      <Heading {...fuckitUP}>
+      <Heading {...styles}>
         <Textfit mode="single" max={5000}>
           {window.average} AVG
         </Textfit>
@@ -26,4 +26,4 @@ const App = () => {
   )
 }
 
-render(<App />, document.getElementById("because-chris-said-so"))
+render(<App />, document.getElementById("image-wrapper"))

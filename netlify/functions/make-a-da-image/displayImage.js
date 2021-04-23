@@ -6377,7 +6377,7 @@
 	  }));
 	});
 
-	var fuckitUP = {
+	var styles = {
 	  w: "inherit",
 	  color: "white",
 	  fontFamily: "sans-serif"
@@ -6387,15 +6387,15 @@
 	  return /*#__PURE__*/react.createElement(Box, {
 	    width: "100vw",
 	    height: "100vh"
-	  }, /*#__PURE__*/react.createElement(Heading, fuckitUP, /*#__PURE__*/react.createElement(Textfit, {
+	  }, /*#__PURE__*/react.createElement(Heading, styles, /*#__PURE__*/react.createElement(Textfit, {
 	    mode: "single",
 	    max: 5000
-	  }, "$ ", window.ticker)), /*#__PURE__*/react.createElement(Heading, fuckitUP, /*#__PURE__*/react.createElement(Textfit, {
+	  }, "$ ", window.ticker)), /*#__PURE__*/react.createElement(Heading, styles, /*#__PURE__*/react.createElement(Textfit, {
 	    mode: "single",
 	    max: 5000
 	  }, window.average, " AVG")));
 	};
 
-	reactDom_6( /*#__PURE__*/react.createElement(App, null), document.getElementById("because-chris-said-so"));
+	reactDom_6( /*#__PURE__*/react.createElement(App, null), document.getElementById("image-wrapper"));
 
 }());

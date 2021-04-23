@@ -2,7 +2,7 @@ const playwright = require("playwright-aws-lambda")
 const fs = require("fs")
 const path = require("path")
 const script = fs.readFileSync(
-  path.resolve(__dirname, "./someReactFileThing.js"),
+  path.resolve(__dirname, "./displayImage.js"),
   "utf-8"
 )
 
@@ -20,7 +20,7 @@ exports.handler = async ({ body }) => {
         <meta charset="utf-8" />
       </head>
       <body>
-      <div id="because-chris-said-so"><div>DOODOO</div></div>
+      <div id="image-wrapper"><div>DOODOO</div></div>
       </body>
     </html> `)
   const { ticker, average } = JSON.parse(body)
@@ -32,7 +32,7 @@ exports.handler = async ({ body }) => {
   })
   await page.addScriptTag({ content: script })
   const boundingRect = await page.evaluate(() => {
-    const entryDiv = document.getElementById("because-chris-said-so")
+    const entryDiv = document.getElementById("image-wrapper")
     const { x, y, width, height } = entryDiv.children[0].getBoundingClientRect()
     return { x, y, width, height }
   })

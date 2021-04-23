@@ -8,10 +8,10 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 const config = {
-  input: "src/someReactFileThing.js",
+  input: "src/displayImage.js",
   output: [
     {
-      file: `someReactFileThing.js`,
+      file: `displayImage.js`,
       format: "iife",
     },
   ],
