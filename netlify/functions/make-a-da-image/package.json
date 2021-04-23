@@ -10,8 +10,8 @@
     "@emotion/styled": "^11",
     "dom-to-image": "^2.6.0",
     "framer-motion": "^4",
-    "playwright-aws-lambda": "^0.4.0",
-    "playwright-core": "^0.11.1",
+    "playwright-aws-lambda": "^0.6.0",
+    "playwright-core": "^1.10.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-textfit": "^1.1.0"

@@ -1,3 +1,4 @@
+require("playwright-core")
 const playwright = require("playwright-aws-lambda")
 const fs = require("fs")
 const path = require("path")
@@ -7,9 +8,9 @@ const script = fs.readFileSync(
 )
 
 exports.handler = async ({ body }) => {
-  console.log({ body })
   const browser = await playwright.launchChromium()
-  const context = browser._defaultContext
+  console.log({ body })
+  const context = await browser.newContext()
   console.log(context)
   const page = await context.newPage()
   page.setViewportSize({
