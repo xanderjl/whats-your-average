@@ -34,7 +34,7 @@ const inputStyles = {
   p: "0.5rem",
 }
 
-const CheckoutForm = ({ file, ...rest }) => {
+const CheckoutForm = ({ imageUrl, ...rest }) => {
   const stripe = useStripe()
   const elements = useElements()
   const { totalPrice, cartDetails } = useShoppingCart()
@@ -53,22 +53,6 @@ const CheckoutForm = ({ file, ...rest }) => {
     try {
       const cardElement = elements.getElement(CardElement)
       setLoading(true)
-
-      const url = new URL("https://api.imgbb.com/1/upload")
-      url.search = new URLSearchParams({
-        key: process.env.GATSBY_IMGBB_API_KEY,
-        expiration: 600,
-      })
-      const body = new FormData()
-      body.append("image", file)
-      const imageUrl = await fetch(url, {
-        method: "POST",
-        body,
-      })
-        .then(res => res.json())
-        .then(({ data }) => {
-          return data.url
-        })
 
       await fetch("/.netlify/functions/create-payment-intent", {
         method: "POST",

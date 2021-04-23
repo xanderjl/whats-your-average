@@ -27,7 +27,6 @@ import {
   variantsBySize,
   costBySize,
 } from "@/lib/shirtDetails"
-import domtoimage from "dom-to-image"
 import { FiShoppingCart } from "react-icons/fi"
 
 const initState = {
@@ -311,10 +310,37 @@ const IndexPage = () => {
                       parseInt(quantity)
                     )
                     try {
-                      const blob = await domtoimage.toBlob(imgRef.current, {
-                        quality: 1,
+                      const image = await fetch(
+                        "/.netlify/functions/make-a-da-image",
+                        {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                          body: JSON.stringify({
+                            ticker,
+                            average,
+                          }),
+                        }
+                      ).then(res => res.blob())
+                      const url = new URL("https://api.imgbb.com/1/upload")
+                      url.search = new URLSearchParams({
+                        key: process.env.GATSBY_IMGBB_API_KEY,
+                        expiration: 600,
                       })
-                      navigate("/checkout", { state: { blob } })
+                      const body = new FormData()
+
+                      body.append("image", image)
+
+                      const imageUrl = await fetch(url, {
+                        method: "POST",
+                        body,
+                      })
+                        .then(res => res.json())
+                        .then(({ data }) => {
+                          return data.url
+                        })
+                      navigate("/checkout", { state: { imageUrl } })
                     } catch (err) {
                       console.log(err)
                     }
@@ -328,22 +354,6 @@ const IndexPage = () => {
           </Flex>
         </VStack>
       </Container>
-      <Box pos="absolute" right="100%">
-        <Box ref={imgRef} maxW="max-content" textAlign="center">
-          <Heading
-            fontSize={printHeaderStyles(ticker).fontSize}
-            whiteSpace="nowrap"
-          >
-            ${ticker}
-          </Heading>
-          <Heading
-            fontSize={printSubheaderStyles(average).fontSize}
-            whiteSpace="nowrap"
-          >
-            {average} AVG
-          </Heading>
-        </Box>
-      </Box>
     </Layout>
   )
 }

@@ -32,7 +32,7 @@ const Checkout = ({ location }) => {
                 Checkout:
               </Heading>
               {cartCount > 0 ? (
-                <CheckoutForm file={location.state.blob} />
+                <CheckoutForm imageUrl={location.state.imageUrl} />
               ) : (
                 <Link to="/">
                   <Heading
