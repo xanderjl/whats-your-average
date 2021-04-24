@@ -1,5 +1,5 @@
-const chromium = require("chrome-aws-lambda")
-const playwright = require("playwright-core")
+const playwright = require("playwright-aws-lambda")
+require("playwright-core")
 const fs = require("fs")
 const path = require("path")
 const script = fs.readFileSync(
@@ -8,16 +8,9 @@ const script = fs.readFileSync(
 )
 
 exports.handler = async ({ body }) => {
-  const browser = await playwright.chromium.launch({
-    args: chromium.args,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-  })
-  const page = await browser.newPage()
-  page._client.send("Browser.setDownloadBehavior", {
-    behavior: "allow",
-    downloadPath: "./",
-  })
+  const browser = await playwright.launchChromium()
+  const context = await browser._defaultContext
+  const page = await context.newPage()
   page.setViewportSize({
     width: 3600,
     height: 5400,

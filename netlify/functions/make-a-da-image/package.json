@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "chrome-aws-lambda": "^8.0.2",
-    "playwright-core": "^1.10.0"
+    "playwright-aws-lambda": "^0.4.0",
+    "playwright-core": "^0.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
