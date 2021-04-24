@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react"
+import React, { useReducer, useRef, useState } from "react"
 import { navigate } from "gatsby"
 import {
   Box,
@@ -179,6 +179,7 @@ const IndexPage = () => {
   const [state, dispatch] = useReducer(reducer, initState)
   const { ticker, average, size, quantity, cost, variant_id } = state
   const imgRef = useRef(null)
+  const [isLoading, setLoading] = useState(false)
   const { addItem } = useShoppingCart()
 
   return (
@@ -293,6 +294,8 @@ const IndexPage = () => {
               </Flex>
               <VStack>
                 <Button
+                  isLoading={isLoading}
+                  loadingText="Generating Design"
                   variant="outline"
                   fontSize="xl"
                   fontWeight={600}
@@ -310,6 +313,7 @@ const IndexPage = () => {
                       parseInt(quantity)
                     )
                     try {
+                      setLoading(true)
                       const image = await fetch(
                         "/.netlify/functions/make-a-da-image",
                         {
@@ -338,6 +342,7 @@ const IndexPage = () => {
                       })
                         .then(res => res.json())
                         .then(({ data }) => {
+                          setLoading(false)
                           return data.url
                         })
                       navigate("/checkout", { state: { imageUrl } })
