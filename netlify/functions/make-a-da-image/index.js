@@ -9,9 +9,7 @@ const script = fs.readFileSync(
 
 exports.handler = async ({ body }) => {
   const browser = await playwright.launchChromium()
-  console.log({ body })
   const context = await browser._defaultContext
-  console.log(context)
   const page = await context.newPage()
   page.setViewportSize({
     width: 3600,
