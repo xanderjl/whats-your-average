@@ -30,7 +30,7 @@ import {
 import { FiShoppingCart } from "react-icons/fi"
 
 const initState = {
-  ticker: "WYAV",
+  ticker: "WYA",
   average: "10.00",
   size: variantIDs[1].size,
   variant_id: variantIDs[1].variant_id,
@@ -79,55 +79,6 @@ const tickerStyles = ticker => {
       return {
         fontSize: "72px",
         y: 32,
-      }
-  }
-}
-
-const printHeaderStyles = ticker => {
-  switch (ticker.length) {
-    case 4:
-      return {
-        fontSize: "120px",
-        y: 18,
-      }
-    case 3:
-      return {
-        fontSize: "140px",
-        y: 24,
-      }
-    case 2:
-      return {
-        fontSize: "160px",
-        y: 26,
-      }
-    default:
-      return {
-        fontSize: "170px",
-        y: 32,
-      }
-  }
-}
-
-const printSubheaderStyles = average => {
-  switch (average.length) {
-    case 7:
-      return {
-        fontSize: "80px",
-      }
-    case 6:
-      return {
-        fontSize: "90px",
-        y: 34,
-      }
-    case 5:
-      return {
-        fontSize: "100px",
-        y: 36,
-      }
-    default:
-      return {
-        fontSize: "105px",
-        y: 26,
       }
   }
 }
