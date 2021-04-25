@@ -36,7 +36,7 @@ exports.handler = async ({ body }) => {
       //   name: recipient.name,
       // },
     }
-    sgMail
+    await sgMail
       .send(msg)
       .then(res => console.log(res))
       .catch(err => console.error(err))
