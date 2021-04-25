@@ -5,11 +5,11 @@ const sgMail = require("@sendgrid/mail")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 exports.handler = async ({ body }) => {
-  if (body.type == "order_created") {
-    const msg = {
-      to: "alexanderjameslow@gmail.com",
-      from: process.env.FROM_EMAIL_ADDRESS,
-      html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  // if (body.type === "order_created") {
+  const msg = {
+    to: "alexanderjameslow@gmail.com",
+    from: process.env.FROM_EMAIL_ADDRESS,
+    html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
           <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -179,17 +179,18 @@ exports.handler = async ({ body }) => {
             </center>
           </body>
         </html>`,
-    }
-
-    sgMail
-      .send(msg)
-      .then(res => console.log(res[0].statusCode + "\n" + res[0].headers))
-      .catch(err => console.log(err))
-  } else if (body.type == "order_canceled") {
-  } else if (body.type == "order_failed") {
-  } else if (body.type == "package_shipped") {
-  } else if (body.type == "package_returned") {
   }
+
+  sgMail
+    .send(msg)
+    .then(res => console.log(res[0].statusCode + "\n" + res[0].headers))
+    .catch(err => console.log(err))
+  // }
+  // else if (body.type === "order_canceled") {
+  // } else if (body.type === "order_failed") {
+  // } else if (body.type === "package_shipped") {
+  // } else if (body.type === "package_returned") {
+  // }
 
   return {
     statusCode: 200,
