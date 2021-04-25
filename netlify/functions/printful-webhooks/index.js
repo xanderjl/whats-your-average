@@ -19,47 +19,80 @@ exports.handler = async ({ body }) => {
     }
   }
 
+  const {
+    shipping,
+    recipient,
+    items,
+    incomplete_items,
+    retail_costs,
+    shipments,
+    gift,
+    packing_slip,
+  } = data
+
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
     order_canceled: "d-284f69e35a4c41b89c8a2c7c2422f620",
+    order_failed: "",
+    package_shipped: "",
+    package_returned: "",
   }
-
-  if (type === "order_created") {
-    const {
-      shipping,
-      created,
-      updated,
+  const msg = {
+    to: "alexanderjameslow@gmail.com",
+    // to: recipient.email,
+    from: process.env.FROM_EMAIL_ADDRESS,
+    templateId: templates[type],
+    dynamicTemplateData: {
       recipient,
+      shipping,
       items,
       incomplete_items,
-      costs,
       retail_costs,
-      pricing_breakdown,
       shipments,
       gift,
       packing_slip,
-    } = data
+    },
+  }
 
-    const msg = {
-      to: "alexanderjameslow@gmail.com",
-      // to: recipient.email,
-      from: process.env.FROM_EMAIL_ADDRESS,
-      templateId: templates[type],
-      dynamicTemplateData: {
-        items,
-        retail_costs,
-      },
-    }
+  if (type === "order_created") {
     await sgMail
       .send(msg)
       .then(res => console.log(res))
       .catch(err => console.error(err))
+  } else if (type === "order_canceled" || "order_failed") {
+    const { reason } = data
+    const message = {
+      ...msg,
+      dynamicTemplateData: { ...dynamicTemplateData, reason },
+    }
+
+    await sgMail
+      .send(message)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+  } else if (type === "package_shipped") {
+    const { shipment } = data
+    const message = {
+      ...msg,
+      dynamicTemplateData: { ...dynamicTemplateData, shipment },
+    }
+
+    await sgMail
+      .send(message)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
+  } else if (type === "package_returned") {
+    const { shipment, reason } = data
+    const message = {
+      ...msg,
+      dynamicTemplateData: { ...dynamicTemplateData, shipment, reason },
+    }
+
+    await sgMail
+      .send(message)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
   }
-  // else if (type === "order_canceled") {
-  // } else if (type === "order_failed") {
-  // } else if (type === "package_shipped") {
-  // } else if (type === "package_returned") {
-  // }
 
   return {
     statusCode: 200,
