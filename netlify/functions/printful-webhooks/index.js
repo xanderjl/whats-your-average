@@ -19,9 +19,9 @@ exports.handler = async ({ body }) => {
     }
   }
 
-  // const { type, data } = JSON.parse(body)
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
+    order_canceled: "d-284f69e35a4c41b89c8a2c7c2422f620",
   }
 
   if (type === "order_created") {
@@ -45,9 +45,10 @@ exports.handler = async ({ body }) => {
       // to: recipient.email,
       from: process.env.FROM_EMAIL_ADDRESS,
       templateId: templates[type],
-      // dynamicTemplateData: {
-      //   name: recipient.name,
-      // },
+      dynamicTemplateData: {
+        items,
+        retail_costs,
+      },
     }
     await sgMail
       .send(msg)
