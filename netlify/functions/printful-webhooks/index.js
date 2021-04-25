@@ -5,6 +5,7 @@ const sgMail = require("@sendgrid/mail")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 exports.handler = async ({ body }) => {
+  console.log(body)
   const { type, data } = body
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
