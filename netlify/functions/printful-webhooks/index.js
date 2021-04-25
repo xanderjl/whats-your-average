@@ -19,6 +19,7 @@ exports.handler = async ({ body }) => {
   }
 
   const {
+    id,
     shipping,
     recipient,
     items,
@@ -32,16 +33,18 @@ exports.handler = async ({ body }) => {
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
     order_canceled: "d-284f69e35a4c41b89c8a2c7c2422f620",
-    order_failed: "",
-    package_shipped: "",
-    package_returned: "",
+    order_failed: "d-39fa7ff4e42b480d8f75ec502fa1072f",
+    package_shipped: "d-0552ae85e4a44fb593ca8d1d8ebb63ef",
+    package_returned: "d-2c67411b633641129df89fbdffaaf9b9",
   }
   const msg = {
     to: "alexanderjameslow@gmail.com",
     // to: recipient.email,
     from: process.env.FROM_EMAIL_ADDRESS,
+    subject: `${type} (noreply)`,
     templateId: templates[type],
     dynamicTemplateData: {
+      id,
       recipient,
       shipping,
       items,
