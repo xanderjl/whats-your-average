@@ -5,19 +5,21 @@ const sgMail = require("@sendgrid/mail")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 exports.handler = async ({ body }) => {
-  console.log(body)
-  let type
-  let data
+  // console.log(body)
+  // let type
+  // let data
 
-  try {
-    ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
-  } catch (err) {
-    console.error(err)
-    return {
-      statusCode: 500,
-      body: "oops",
-    }
-  }
+  // try {
+  //   ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
+  // } catch (err) {
+  //   console.error(err)
+  //   return {
+  //     statusCode: 500,
+  //     body: "oops",
+  //   }
+  // }
+
+  const { type, data } = JSON.parse(body)
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
   }
