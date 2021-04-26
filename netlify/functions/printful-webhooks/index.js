@@ -41,9 +41,9 @@ exports.handler = async ({ body }) => {
     to: "alexanderjameslow@gmail.com",
     // to: recipient.email,
     from: process.env.FROM_EMAIL_ADDRESS,
-    subject: `${type} (noreply)`,
     templateId: templates[type],
     dynamicTemplateData: {
+      subject: `${type} (noreply)`,
       id,
       recipient,
       shipping,
