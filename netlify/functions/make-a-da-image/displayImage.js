@@ -15566,15 +15566,15 @@
 	var _templateObject;
 
 	var Fonts = function Fonts() {
-	  return /*#__PURE__*/react_11(Global, {
-	    styles: css(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      /* Helvetica */\n      @font-face {\n        font-family: \"Helvetica\";\n        font-style: normal;\n        font-weight: 400;\n        font-display: swap;\n        src: url(\"./Helvetica.ttf\") format(\"truetype\");\n      }\n    "])))
+	  return /*#__PURE__*/react.createElement(Global, {
+	    styles: css(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      /* Helvetica Neue */\n      @font-face {\n        font-family: \"Helvetica Neue\";\n        font-style: normal;\n        font-weight: 400;\n        font-display: swap;\n        src: url(\"../fonts/HelveticaNeue.ttf\") format(\"truetype\");\n        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,\n          U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,\n          U+2212, U+2215, U+FEFF, U+FFFD;\n      }\n    "])))
 	  });
 	};
 
 	var styles = {
 	  w: "inherit",
 	  color: "white",
-	  fontFamily: "Helvetica, sans-serif"
+	  fontFamily: "Helvetica Neue, sans-serif"
 	};
 
 	var App = function App() {

@@ -7,7 +7,7 @@ import Fonts from "./fonts"
 const styles = {
   w: "inherit",
   color: "white",
-  fontFamily: "Helvetica, sans-serif",
+  fontFamily: "Helvetica Neue, sans-serif",
 }
 
 const App = () => {

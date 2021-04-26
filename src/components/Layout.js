@@ -1,7 +1,7 @@
 import * as React from "react"
 import PropTypes from "prop-types"
-import { Box, Flex, Text } from "@chakra-ui/layout"
 import Fonts from "@/fonts"
+import { Box, Flex, Text } from "@chakra-ui/layout"
 import Navbar from "@/components/Navbar"
 import { HStack } from "@chakra-ui/layout"
 import Icon from "@chakra-ui/icon"
