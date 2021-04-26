@@ -19,6 +19,7 @@ exports.handler = async ({ body, headers }) => {
       const eventObject = stripeEvent.data.object
       const email = eventObject.receipt_email
       const items = JSON.parse(eventObject.metadata.line_items)
+      const retail_costs = JSON.parse(eventObject.metadata.retail_costs)
       const shippingDetails = eventObject.shipping
       const { name, phone, address } = shippingDetails
       const { city, country, line1, line2, postal_code, state } = address
@@ -43,6 +44,7 @@ exports.handler = async ({ body, headers }) => {
             email,
           },
           items,
+          retail_costs,
           confirm: false,
         }),
       })

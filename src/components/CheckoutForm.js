@@ -52,6 +52,8 @@ const CheckoutForm = ({
 
   const onSubmit = async values => {
     try {
+      const subtotal = totalPrice
+      const shipping = addedShipping
       const total = totalPrice + addedShipping
       const cardElement = elements.getElement(CardElement)
       setLoading(true)
@@ -61,7 +63,13 @@ const CheckoutForm = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ total, values, cartDetails }),
+        body: JSON.stringify({
+          subtotal,
+          shipping,
+          total,
+          values,
+          cartDetails,
+        }),
       })
         .then(res => res.json())
         .then(data => {
