@@ -48,12 +48,13 @@ const CheckoutForm = ({
     formState: { errors },
   } = useForm()
 
+  console.log(totalPrice)
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async values => {
     try {
-      const subtotal = totalPrice
-      const shipping = addedShipping
+      const subtotal = (totalPrice / 100).toFixed(2)
+      const shipping = (addedShipping / 100).toFixed(2)
       const total = totalPrice + addedShipping
       const cardElement = elements.getElement(CardElement)
       setLoading(true)
