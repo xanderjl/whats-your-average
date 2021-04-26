@@ -52,6 +52,7 @@ const CheckoutForm = ({
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async values => {
+    console.log(values)
     try {
       const subtotal = (totalPrice / 100).toFixed(2)
       const shipping = (addedShipping / 100).toFixed(2)

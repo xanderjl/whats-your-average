@@ -39,7 +39,7 @@ exports.handler = async ({ body }) => {
         city: values.city || null,
         country: values.country || null,
         line1: values.address || null,
-        line2: values.addres_2 || null,
+        line2: values.address_2 || null,
         postal_code: values.postal_code || null,
         state: values.state || null,
       },
