@@ -15567,7 +15567,7 @@
 
 	var Fonts = function Fonts() {
 	  return /*#__PURE__*/react_11(Global, {
-	    styles: css(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      /* Helvetica */\n      @font-face {\n        font-family: \"Helvetica\";\n        font-style: normal;\n        font-weight: 400;\n        font-display: swap;\n        src: url(\"./Helvetica.otf\") format(\"opentype\");\n      }\n    "])))
+	    styles: css(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      /* Helvetica */\n      @font-face {\n        font-family: \"Helvetica\";\n        font-style: normal;\n        font-weight: 400;\n        font-display: swap;\n        src: url(\"./Helvetica.ttf\") format(\"truetype\");\n      }\n    "])))
 	  });
 	};
 

@@ -10,7 +10,7 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url("./Helvetica.otf") format("opentype");
+        src: url("./Helvetica.ttf") format("truetype");
       }
     `}
   />
