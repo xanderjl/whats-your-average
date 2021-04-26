@@ -15574,7 +15574,7 @@
 	var styles = {
 	  w: "inherit",
 	  color: "white",
-	  fontFamily: "sans-serif"
+	  fontFamily: "Helvetica, sans-serif"
 	};
 
 	var App = function App() {
