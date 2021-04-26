@@ -65,7 +65,7 @@ exports.handler = async ({ body }) => {
     const { reason } = data
     const message = {
       ...msg,
-      dynamicTemplateData: { ...dynamicTemplateData, reason },
+      dynamicTemplateData: { ...msg.dynamicTemplateData, reason },
     }
 
     await sgMail
@@ -76,7 +76,7 @@ exports.handler = async ({ body }) => {
     const { shipment } = data
     const message = {
       ...msg,
-      dynamicTemplateData: { ...dynamicTemplateData, shipment },
+      dynamicTemplateData: { ...msg.dynamicTemplateData, shipment },
     }
 
     await sgMail
@@ -87,7 +87,7 @@ exports.handler = async ({ body }) => {
     const { shipment, reason } = data
     const message = {
       ...msg,
-      dynamicTemplateData: { ...dynamicTemplateData, shipment, reason },
+      dynamicTemplateData: { ...msg.dynamicTemplateData, shipment, reason },
     }
 
     await sgMail
