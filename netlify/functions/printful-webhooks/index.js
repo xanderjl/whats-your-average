@@ -31,7 +31,7 @@ exports.handler = async ({ body }) => {
     shipments,
     gift,
     packing_slip,
-  } = data
+  } = data.order
 
   const templates = {
     order_created: "d-7240134797ab443c898a0529d685ee73",
@@ -60,34 +60,6 @@ exports.handler = async ({ body }) => {
   }
 
   if (type === "order_created") {
-    const { order } = data
-    const {
-      id,
-      shipping,
-      recipient,
-      items,
-      incomplete_items,
-      retail_costs,
-      shipments,
-      gift,
-      packing_slip,
-    } = order
-    const message = {
-      ...msg,
-      dynamicTemplateData: {
-        ...msg.dynamicTemplateData,
-        id,
-        shipping,
-        recipient,
-        items,
-        incomplete_items,
-        retail_costs,
-        shipments,
-        gift,
-        packing_slip,
-      },
-    }
-
     await sgMail
       .send(msg)
       .then(res => console.log(res))
@@ -104,26 +76,13 @@ exports.handler = async ({ body }) => {
       .then(res => console.log(res))
       .catch(err => console.error(err))
   } else if (type === "package_shipped") {
-    const { shipment, order } = data
-    const {
-      id,
-      status,
-      shipping,
-      shipments,
-      recipient,
-      gift,
-      packing_slip,
-    } = order
+    const { shipment } = data
+    const { shipments } = msg.dynamicTemplateData.shipmentsp
     const message = {
       ...msg,
       dynamicTemplateData: {
         shipment,
-        id,
-        status,
-        shipping,
-        recipient,
-        gift,
-        packing_slip,
+        ...msg.dynamicTemplateData,
         carrier: shipments.carrier,
         service: shipments.service,
         ship_date: shipments.ship_date,
