@@ -76,10 +76,39 @@ exports.handler = async ({ body }) => {
       .then(res => console.log(res))
       .catch(err => console.error(err))
   } else if (type === "package_shipped") {
-    const { shipment } = data
+    const { shipment, order } = data
+    const {
+      id,
+      status,
+      shipping,
+      shipments,
+      recipient,
+      gift,
+      packing_slip,
+    } = order
     const message = {
       ...msg,
-      dynamicTemplateData: { ...msg.dynamicTemplateData, shipment },
+      dynamicTemplateData: {
+        shipment,
+        id,
+        status,
+        shipping,
+        recipient,
+        gift,
+        packing_slip,
+        carrier: shipments.carrier,
+        service: shipments.service,
+        ship_date: shipments.ship_date,
+        shipped_at: new Date(shipments.shipped_at).getDate("en-US"),
+        location: shipments.location,
+        packing_slip_url: shipments.packing_slip_url,
+        estimated_delivery_dates: {
+          from: new Date(shipments.estimated_delivery_dates.from).getDate(
+            "en-CA"
+          ),
+          to: new Date(shipments.estimated_delivery_dates.to).getDate("en-CA"),
+        },
+      },
     }
 
     await sgMail
