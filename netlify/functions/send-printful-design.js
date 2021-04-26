@@ -18,8 +18,7 @@ exports.handler = async ({ body, headers }) => {
       const auth = Buffer.from(process.env.PRINTFUL_API_KEY).toString("base64")
       const eventObject = stripeEvent.data.object
       const email = eventObject.receipt_email
-      const { variant_id, quantity, imageUrl } = eventObject.metadata
-      console.log({ imageUrl })
+      const items = JSON.parse(eventObject.metadata.line_items)
       const shippingDetails = eventObject.shipping
       const { name, phone, address } = shippingDetails
       const { city, country, line1, line2, postal_code, state } = address
@@ -43,17 +42,7 @@ exports.handler = async ({ body, headers }) => {
             phone,
             email,
           },
-          items: [
-            {
-              variant_id,
-              quantity,
-              files: [
-                {
-                  url: imageUrl,
-                },
-              ],
-            },
-          ],
+          items,
           confirm: false,
         }),
       })

@@ -19,11 +19,21 @@ const Layout = ({ children }) => {
           {children}
         </Box>
         <Flex direction="column" as="footer" align="center" justify="center">
-          <HStack pb="1rem" spacing={4}>
-            <Link href="https://www.instagram.com/whatsyouraverage/" isExternal>
+          <HStack pb="1rem" spacing={0}>
+            <Link
+              href="https://www.instagram.com/whatsyouraverage/"
+              isExternal
+              _hover={{ bg: "white", color: "black" }}
+              p="0.5rem"
+            >
               <Icon as={FiInstagram} boxSize={10} />
             </Link>
-            <Link href="https://twitter.com/wyaverage" isExternal>
+            <Link
+              href="https://twitter.com/wyaverage"
+              isExternal
+              _hover={{ bg: "white", color: "black" }}
+              p="0.5rem"
+            >
               <Icon as={FaTwitter} boxSize={10} />
             </Link>
           </HStack>

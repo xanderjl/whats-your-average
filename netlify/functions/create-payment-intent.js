@@ -4,7 +4,21 @@ require("dotenv").config({
 const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY)
 
 exports.handler = async ({ body }) => {
-  const { totalPrice, values, cartDetails, imageUrl } = JSON.parse(body)
+  const { totalPrice, values, cartDetails } = JSON.parse(body)
+
+  const cartArray = Object.values(cartDetails)
+
+  const line_items = JSON.stringify(
+    cartArray.map(item => {
+      const { name, description, product_data, quantity } = item
+      return {
+        quantity,
+        variant_id: product_data.metadata.variant_id,
+        files: [{ url: product_data.metadata.imageUrl }],
+      }
+    })
+  )
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalPrice,
     currency: "cad",
@@ -23,10 +37,10 @@ exports.handler = async ({ body }) => {
       },
     },
     metadata: {
-      variant_id: Object.keys(cartDetails)[0],
-      quantity: Object.values(cartDetails)[0].quantity,
-      imageUrl,
+      line_items,
     },
+    // variant_id: Object.keys(cartDetails)[0],
+    // quantity: Object.values(cartDetails)[0].quantity,
   })
 
   return {

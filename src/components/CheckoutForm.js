@@ -34,7 +34,7 @@ const inputStyles = {
   p: "0.5rem",
 }
 
-const CheckoutForm = ({ imageUrl, ...rest }) => {
+const CheckoutForm = props => {
   const stripe = useStripe()
   const elements = useElements()
   const { totalPrice, cartDetails } = useShoppingCart()
@@ -59,7 +59,7 @@ const CheckoutForm = ({ imageUrl, ...rest }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ totalPrice, values, cartDetails, imageUrl }),
+        body: JSON.stringify({ totalPrice, values, cartDetails }),
       })
         .then(res => res.json())
         .then(data => {
@@ -112,7 +112,7 @@ const CheckoutForm = ({ imageUrl, ...rest }) => {
       as="form"
       align="stretch"
       spacing={8}
-      {...rest}
+      {...props}
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormControl isInvalid={errors.name}>

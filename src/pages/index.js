@@ -1,5 +1,4 @@
 import React, { useReducer, useRef, useState } from "react"
-import { navigate } from "gatsby"
 import {
   Box,
   Button,
@@ -28,6 +27,13 @@ import {
   costBySize,
 } from "@/lib/shirtDetails"
 import { FiShoppingCart } from "react-icons/fi"
+import {
+  tickerStyles,
+  averageStyles,
+  inputStyles,
+  inputFieldStyles,
+  headingStyles,
+} from "@/lib/indexStyles"
 
 const initState = {
   ticker: "WYA",
@@ -56,74 +62,6 @@ const reducer = (state, action) => {
     default:
       throw new Error()
   }
-}
-
-const tickerStyles = ticker => {
-  switch (ticker.length) {
-    case 4:
-      return {
-        fontSize: "48px",
-        y: 18,
-      }
-    case 3:
-      return {
-        fontSize: "56px",
-        y: 24,
-      }
-    case 2:
-      return {
-        fontSize: "64px",
-        y: 26,
-      }
-    default:
-      return {
-        fontSize: "72px",
-        y: 32,
-      }
-  }
-}
-
-const averageStyles = average => {
-  switch (average.length) {
-    case 7:
-      return {
-        fontSize: "30px",
-      }
-    case 6:
-      return {
-        fontSize: "32px",
-        y: 34,
-      }
-    case 5:
-      return {
-        fontSize: "34px",
-        y: 36,
-      }
-    default:
-      return {
-        fontSize: "38px",
-        y: 26,
-      }
-  }
-}
-
-const inputStyles = {
-  variant: "flushed",
-  _placeholder: {
-    color: "gray.300",
-  },
-  maxW: "12ch",
-}
-
-const inputFieldStyles = {
-  align: "center",
-  justify: "center",
-}
-
-const headingStyles = {
-  fontSize: "xl",
-  fontWeight: 600,
-  pr: "0.5rem",
 }
 
 const IndexPage = () => {
@@ -251,18 +189,6 @@ const IndexPage = () => {
                   fontSize="xl"
                   fontWeight={600}
                   onClick={async () => {
-                    addItem(
-                      {
-                        name: "Custom WYA T-shirt",
-                        description: `Customized t-shirt. Reads: $${ticker} / ${average} AVG`,
-                        id: "",
-                        price: cost * 100,
-                        currency: "CAD",
-                        image: "",
-                        sku: variant_id,
-                      },
-                      parseInt(quantity)
-                    )
                     try {
                       setLoading(true)
                       const image = await fetch(
@@ -296,7 +222,25 @@ const IndexPage = () => {
                           setLoading(false)
                           return data.url
                         })
-                      navigate("/checkout", { state: { imageUrl } })
+                      addItem(
+                        {
+                          name: "Custom WYA T-shirt",
+                          description: `Customized t-shirt. Reads: $${ticker} / ${average} AVG`,
+                          id: "",
+                          price: cost * 100,
+                          currency: "CAD",
+                          image: "",
+                          sku:
+                            variant_id + size + Math.floor(Math.random() * 99),
+                          product_data: {
+                            metadata: {
+                              variant_id,
+                              imageUrl,
+                            },
+                          },
+                        },
+                        parseInt(quantity)
+                      )
                     } catch (err) {
                       console.log(err)
                     }
