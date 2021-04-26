@@ -8,8 +8,8 @@ exports.handler = async ({ body }) => {
   let type
   let data
 
-  const test = JSON.parse(body)
-  console.log(JSON.stringify(test, null, 2))
+  // const test = JSON.parse(body)
+  // console.log(JSON.stringify(test, null, 2))
 
   try {
     ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
@@ -60,6 +60,34 @@ exports.handler = async ({ body }) => {
   }
 
   if (type === "order_created") {
+    const { order } = data
+    const {
+      id,
+      shipping,
+      recipient,
+      items,
+      incomplete_items,
+      retail_costs,
+      shipments,
+      gift,
+      packing_slip,
+    } = order
+    const message = {
+      ...msg,
+      dynamicTemplateData: {
+        ...msg.dynamicTemplateData,
+        id,
+        shipping,
+        recipient,
+        items,
+        incomplete_items,
+        retail_costs,
+        shipments,
+        gift,
+        packing_slip,
+      },
+    }
+
     await sgMail
       .send(msg)
       .then(res => console.log(res))
