@@ -8,6 +8,9 @@ exports.handler = async ({ body }) => {
   let type
   let data
 
+  const test = JSON.parse(body)
+  console.log(JSON.stringify(test, null, 2))
+
   try {
     ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
   } catch (err) {
