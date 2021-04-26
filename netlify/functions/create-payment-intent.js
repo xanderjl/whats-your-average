@@ -4,7 +4,7 @@ require("dotenv").config({
 const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY)
 
 exports.handler = async ({ body }) => {
-  const { totalPrice, values, cartDetails } = JSON.parse(body)
+  const { total, values, cartDetails } = JSON.parse(body)
 
   const cartArray = Object.values(cartDetails)
 
@@ -20,7 +20,7 @@ exports.handler = async ({ body }) => {
   )
 
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: totalPrice,
+    amount: total,
     currency: "cad",
     payment_method_types: ["card"],
     receipt_email: values.email || null,

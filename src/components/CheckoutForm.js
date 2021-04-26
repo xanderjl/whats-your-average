@@ -15,13 +15,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useForm } from "react-hook-form"
-import { useShoppingCart } from "use-shopping-cart"
 import csc from "country-state-city"
-
-const acceptedCountries = ["CA", "US", "AU"]
-const countryInfo = acceptedCountries.map(
-  country => csc.getAllCountries().filter(c => c.isoCode === country)[0]
-)
 
 const formLabelStyles = {
   flex: 1,
@@ -34,23 +28,31 @@ const inputStyles = {
   p: "0.5rem",
 }
 
-const CheckoutForm = props => {
+const CheckoutForm = ({
+  country,
+  state,
+  countryHandler,
+  stateHandler,
+  countryInfo,
+  totalPrice,
+  addedShipping,
+  cartDetails,
+  ...rest
+}) => {
   const stripe = useStripe()
   const elements = useElements()
-  const { totalPrice, cartDetails } = useShoppingCart()
   const toast = useToast()
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm()
-  const [country, setCountry] = useState(acceptedCountries[0])
-  const [state, setState] = useState("")
+
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async values => {
     try {
+      const total = totalPrice + addedShipping
       const cardElement = elements.getElement(CardElement)
       setLoading(true)
 
@@ -59,7 +61,7 @@ const CheckoutForm = props => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ totalPrice, values, cartDetails }),
+        body: JSON.stringify({ total, values, cartDetails }),
       })
         .then(res => res.json())
         .then(data => {
@@ -112,7 +114,7 @@ const CheckoutForm = props => {
       as="form"
       align="stretch"
       spacing={8}
-      {...props}
+      {...rest}
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormControl isInvalid={errors.name}>
@@ -154,10 +156,7 @@ const CheckoutForm = props => {
             name="country"
             value={country}
             {...register("country", { required: true })}
-            onChange={e => {
-              setValue("country", e.target.value)
-              setCountry(e.target.value)
-            }}
+            onChange={countryHandler}
           >
             {countryInfo.map((country, i) => {
               const { name, isoCode } = country
@@ -179,10 +178,7 @@ const CheckoutForm = props => {
             value={state}
             variant="flushed"
             {...register("state", { required: true })}
-            onChange={e => {
-              setValue("state", e.target.value)
-              setState(e.target.value)
-            }}
+            onChange={stateHandler}
           >
             {csc.getStatesOfCountry(country).map((state, i) => {
               const { name, isoCode } = state

@@ -1,6 +1,7 @@
 import {
   Button,
   Heading,
+  HStack,
   StackDivider,
   Table,
   Tbody,
@@ -12,14 +13,18 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import * as React from "react"
-import { useShoppingCart } from "use-shopping-cart"
 
-const OrderSummaryTable = props => {
-  const { removeItem } = useShoppingCart()
-
+const OrderSummaryTable = ({
+  details,
+  addedShipping,
+  cartCount,
+  totalPrice,
+  removeItem,
+  ...rest
+}) => {
   return (
     <>
-      <Table display={{ base: "none", md: "table" }} size="md" {...props}>
+      <Table display={{ base: "none", md: "table" }} size="md" {...rest}>
         <Thead w="inherit" textTransform="uppercase">
           <Tr>
             <Th color="white">Product</Th>
@@ -30,7 +35,7 @@ const OrderSummaryTable = props => {
           </Tr>
         </Thead>
         <Tbody w="inherit">
-          {props.details.map(item => {
+          {details.map(item => {
             const { name, description, quantity, formattedValue, id } = item
 
             return (
@@ -51,6 +56,20 @@ const OrderSummaryTable = props => {
               </Tr>
             )
           })}
+          <Tr>
+            <Td />
+            <Td />
+            <Td>Shipping:</Td>
+            <Td>${(addedShipping / 100).toFixed(2)}</Td>
+            <Td />
+          </Tr>
+          <Tr>
+            <Td />
+            <Td />
+            <Td>Total:</Td>
+            <Td>${((totalPrice + addedShipping) / 100).toFixed(2)}</Td>
+            <Td />
+          </Tr>
         </Tbody>
       </Table>
       <VStack
@@ -59,7 +78,7 @@ const OrderSummaryTable = props => {
         display={{ base: "flex", md: "none" }}
         divider={<StackDivider color="white" />}
       >
-        {props.details.map(item => {
+        {details.map(item => {
           const { name, description, quantity, formattedValue, id } = item
           return (
             <VStack align="flex-start" key={id} spacing={2}>
@@ -79,6 +98,14 @@ const OrderSummaryTable = props => {
             </VStack>
           )
         })}
+        <HStack align="flex-start" spacing={4}>
+          <Heading size="md">Shipping</Heading>
+          <Text>${(addedShipping / 100).toFixed(2)}</Text>
+        </HStack>
+        <HStack align="flex-start" spacing={4}>
+          <Heading size="md">Total</Heading>
+          <Text>${((totalPrice + addedShipping) / 100).toFixed(2)}</Text>
+        </HStack>
       </VStack>
     </>
   )
