@@ -586,7 +586,7 @@
 	react.useDebugValue;
 	react.useEffect;
 	react.useImperativeHandle;
-	react.useLayoutEffect;
+	var react_23 = react.useLayoutEffect;
 	var react_24 = react.useMemo;
 	react.useReducer;
 	var react_26 = react.useRef;
@@ -8851,7 +8851,7 @@
 	reactIs_development.isValidElementType;
 	reactIs_development.typeOf;
 
-	createCommonjsModule(function (module) {
+	var reactIs = createCommonjsModule(function (module) {
 
 	{
 	  module.exports = reactIs_production_min;
@@ -13408,7 +13408,7 @@
 
 	  return css;
 	}
-	var css = styles => theme => {
+	var css$1 = styles => theme => {
 	  var cssFn = getCss({
 	    theme,
 	    pseudos: pseudoSelectors,
@@ -14376,6 +14376,25 @@
 	  return _extends$2.apply(this, arguments);
 	}
 
+	var FORWARD_REF_STATICS = {
+	  '$$typeof': true,
+	  render: true,
+	  defaultProps: true,
+	  displayName: true,
+	  propTypes: true
+	};
+	var MEMO_STATICS = {
+	  '$$typeof': true,
+	  compare: true,
+	  defaultProps: true,
+	  displayName: true,
+	  propTypes: true,
+	  type: true
+	};
+	var TYPE_STATICS = {};
+	TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
+	TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+
 	var isBrowser$2 = typeof document !== 'undefined';
 
 	function getRegisteredStyles(registered, registeredStyles, classNames) {
@@ -14820,6 +14839,99 @@
 	});
 
 	unwrapExports(_extends_1);
+
+	// initial render from browser, insertBefore context.sheet.tags[0] or if a style hasn't been inserted there yet, appendChild
+	// initial client-side render from SSR, use place of hydrating tag
+
+	var Global = /* #__PURE__ */withEmotionCache(function (props, cache) {
+
+	  var styles = props.styles;
+	  var serialized = serializeStyles([styles], undefined, typeof styles === 'function' || Array.isArray(styles) ? react_19(ThemeContext) : undefined);
+
+	  if (!isBrowser$1) {
+	    var _ref;
+
+	    var serializedNames = serialized.name;
+	    var serializedStyles = serialized.styles;
+	    var next = serialized.next;
+
+	    while (next !== undefined) {
+	      serializedNames += ' ' + next.name;
+	      serializedStyles += next.styles;
+	      next = next.next;
+	    }
+
+	    var shouldCache = cache.compat === true;
+	    var rules = cache.insert("", {
+	      name: serializedNames,
+	      styles: serializedStyles
+	    }, cache.sheet, shouldCache);
+
+	    if (shouldCache) {
+	      return null;
+	    }
+
+	    return /*#__PURE__*/react_11("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+	      __html: rules
+	    }, _ref.nonce = cache.sheet.nonce, _ref));
+	  } // yes, i know these hooks are used conditionally
+	  // but it is based on a constant that will never change at runtime
+	  // it's effectively like having two implementations and switching them out
+	  // so it's not actually breaking anything
+
+
+	  var sheetRef = react_26();
+	  react_23(function () {
+	    var key = cache.key + "-global";
+	    var sheet = new StyleSheet({
+	      key: key,
+	      nonce: cache.sheet.nonce,
+	      container: cache.sheet.container,
+	      speedy: cache.sheet.isSpeedy
+	    }); // $FlowFixMe
+
+	    var node = document.querySelector("style[data-emotion=\"" + key + " " + serialized.name + "\"]");
+
+	    if (cache.sheet.tags.length) {
+	      sheet.before = cache.sheet.tags[0];
+	    }
+
+	    if (node !== null) {
+	      sheet.hydrate([node]);
+	    }
+
+	    sheetRef.current = sheet;
+	    return function () {
+	      sheet.flush();
+	    };
+	  }, [cache]);
+	  react_23(function () {
+	    if (serialized.next !== undefined) {
+	      // insert keyframes
+	      insertStyles(cache, serialized.next, true);
+	    }
+
+	    var sheet = sheetRef.current;
+
+	    if (sheet.tags.length) {
+	      // if this doesn't exist then it will be null so the style element will be appended
+	      var element = sheet.tags[sheet.tags.length - 1].nextElementSibling;
+	      sheet.before = element;
+	      sheet.flush();
+	    }
+
+	    cache.insert("", serialized, sheet, false);
+	  }, [cache, serialized.name]);
+	  return null;
+	});
+
+	function css() {
+	  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+	    args[_key] = arguments[_key];
+	  }
+
+	  return serializeStyles(args);
+	}
 
 	/* global Map:readonly, Set:readonly, ArrayBuffer:readonly */
 	var hasElementType = typeof Element !== 'undefined';
@@ -15278,7 +15390,7 @@
 
 	    var styleProps = objectFilter(rest, (_, prop) => isStyleProp(prop));
 	    var finalStyles = Object.assign({}, __css, baseStyle, styleProps, sx);
-	    var computedCSS = css(finalStyles)(props.theme);
+	    var computedCSS = css$1(finalStyles)(props.theme);
 	    return cssProp ? [computedCSS, cssProp] : computedCSS;
 	  };
 	};
@@ -15439,6 +15551,26 @@
 	  }));
 	});
 
+	function _taggedTemplateLiteral(strings, raw) {
+	  if (!raw) {
+	    raw = strings.slice(0);
+	  }
+
+	  return Object.freeze(Object.defineProperties(strings, {
+	    raw: {
+	      value: Object.freeze(raw)
+	    }
+	  }));
+	}
+
+	var _templateObject;
+
+	var Fonts = function Fonts() {
+	  return /*#__PURE__*/react_11(Global, {
+	    styles: css(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      /* Helvetica */\n      @font-face {\n        font-family: \"Helvetica\";\n        font-style: normal;\n        font-weight: 400;\n        font-display: swap;\n        src: url(\"./Helvetica.otf\") format(\"opentype\");\n      }\n    "])))
+	  });
+	};
+
 	var styles = {
 	  w: "inherit",
 	  color: "white",
@@ -15446,7 +15578,7 @@
 	};
 
 	var App = function App() {
-	  return /*#__PURE__*/react.createElement(Box, {
+	  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Fonts, null), /*#__PURE__*/react.createElement(Box, {
 	    width: "100vw",
 	    height: "100vh"
 	  }, /*#__PURE__*/react.createElement(Heading, styles, /*#__PURE__*/react.createElement(Textfit, {
@@ -15455,7 +15587,7 @@
 	  }, "$", window.ticker)), /*#__PURE__*/react.createElement(Heading, styles, /*#__PURE__*/react.createElement(Textfit, {
 	    mode: "single",
 	    max: 5000
-	  }, window.average, " AVG")));
+	  }, window.average, " AVG"))));
 	};
 
 	reactDom_6( /*#__PURE__*/react.createElement(App, null), document.getElementById("image-wrapper"));

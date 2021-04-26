@@ -1,6 +1,7 @@
 const React = require("react")
 const { loadStripe } = require("@stripe/stripe-js")
 const { CartProvider } = require("use-shopping-cart")
+const { Elements } = require("@stripe/react-stripe-js")
 
 const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY)
 
@@ -17,7 +18,7 @@ exports.wrapRootElement = ({ element }) => {
       currency="CAD"
       allowedCountries={["US", "CA"]}
     >
-      {element}
+      <Elements stripe={stripePromise}>{element}</Elements>
     </CartProvider>
   )
 }

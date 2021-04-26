@@ -1,6 +1,5 @@
-import React, { useState } from "react"
-import { navigate } from "gatsby"
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
+import * as React from "react"
+import { CardElement } from "@stripe/react-stripe-js"
 import {
   Box,
   Button,
@@ -11,10 +10,8 @@ import {
   Input,
   Select,
   Stack,
-  useToast,
   VStack,
 } from "@chakra-ui/react"
-import { useForm } from "react-hook-form"
 import csc from "country-state-city"
 
 const formLabelStyles = {
@@ -37,94 +34,20 @@ const CheckoutForm = ({
   totalPrice,
   addedShipping,
   cartDetails,
+  register,
+  submitHandler,
+  errors,
+  loading,
+  stripe,
   ...rest
 }) => {
-  const stripe = useStripe()
-  const elements = useElements()
-  const toast = useToast()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-
-  console.log(totalPrice)
-  const [loading, setLoading] = useState(false)
-
-  const onSubmit = async values => {
-    try {
-      const subtotal = (totalPrice / 100).toFixed(2)
-      const shipping = (addedShipping / 100).toFixed(2)
-      const total = totalPrice + addedShipping
-      const cardElement = elements.getElement(CardElement)
-      setLoading(true)
-
-      await fetch("/.netlify/functions/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          subtotal,
-          shipping,
-          total,
-          values,
-          cartDetails,
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          stripe
-            .confirmCardPayment(data.clientSecret, {
-              payment_method: {
-                card: cardElement,
-              },
-            })
-            .then(result => {
-              if (result.error) {
-                setLoading(false)
-                return toast({
-                  title: "UH OH, SOMETHING WENT WRONG.",
-                  description: result.error.message,
-                  status: "error",
-                  duration: 10000,
-                  isClosable: true,
-                })
-              } else {
-                setLoading(false)
-                navigate("/success")
-              }
-            })
-        })
-        .catch(err => {
-          setLoading(false)
-          console.log(err)
-          return toast({
-            title: "UH OH, SOMETHING WENT WRONG.",
-            description: err.message,
-            status: "error",
-            duration: 10000,
-            isClosable: true,
-          })
-        })
-    } catch (error) {
-      return toast({
-        title: "UH OH, SOMETHING WENT WRONG.",
-        description: error.message,
-        status: "error",
-        duration: 10000,
-        isClosable: true,
-      })
-    }
-  }
-
   return (
     <VStack
       as="form"
       align="stretch"
       spacing={8}
       {...rest}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={submitHandler}
     >
       <FormControl isInvalid={errors.name}>
         <FormLabel {...formLabelStyles}>Name</FormLabel>
