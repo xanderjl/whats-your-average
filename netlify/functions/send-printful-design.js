@@ -45,7 +45,7 @@ exports.handler = async ({ body, headers }) => {
           },
           items,
           retail_costs,
-          confirm: false,
+          confirm: true,
         }),
       })
         .then(res => res.json())
