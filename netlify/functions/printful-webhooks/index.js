@@ -60,6 +60,7 @@ exports.handler = async ({ body }) => {
   }
 
   if (type === "order_created") {
+    console.log({ msg })
     await sgMail
       .send(msg)
       .then(res => console.log(res))
