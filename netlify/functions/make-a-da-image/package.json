@@ -18,6 +18,7 @@
     "@rollup/plugin-replace": "^2.3.1",
     "rollup": "^2.1.0",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-font": "^1.1.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0"
   },
