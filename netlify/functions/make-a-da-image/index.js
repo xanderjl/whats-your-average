@@ -15,10 +15,17 @@ exports.handler = async ({ body }) => {
     width: 3600,
     height: 5400,
   })
-  await page.setContent(`<!DOCTYPE html>
+  await page.setContent(/* html */ `<!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8" />
+        <style>
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
       </head>
       <body>
       <div id="image-wrapper"><div>DOODOO</div></div>
