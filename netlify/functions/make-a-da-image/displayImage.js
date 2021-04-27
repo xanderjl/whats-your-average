@@ -15197,19 +15197,25 @@
 	    width: "3600px"
 	  }, /*#__PURE__*/react_11(Fonts, null), /*#__PURE__*/react_11(Box, {
 	    m: "0 auto",
-	    width: "3550px",
+	    width: "3450px",
 	    fontFamily: "Helvetica Neue, sans-serif",
 	    fontWeight: 500,
 	    textAlign: "center",
 	    color: "white",
 	    height: "100vh"
+	  }, /*#__PURE__*/react_11(Heading, {
+	    fontWeight: 600,
+	    lineHeight: "60rem"
 	  }, /*#__PURE__*/react_11(Textfit, {
 	    mode: "single",
-	    max: 3400
-	  }, "$", window.ticker), /*#__PURE__*/react_11(Textfit, {
+	    max: 1300
+	  }, "$", window.ticker)), /*#__PURE__*/react_11(Heading, {
+	    fontWeight: 600
+	  }, /*#__PURE__*/react_11(Textfit, {
 	    mode: "single",
-	    max: 3400
-	  }, window.average, " AVG")));
+	    max: 1300,
+	    lineHeight: "60rem"
+	  }, window.average, " AVG"))));
 	};
 
 	reactDom_6( /*#__PURE__*/react_11(App, null), document.getElementById("image-wrapper"));

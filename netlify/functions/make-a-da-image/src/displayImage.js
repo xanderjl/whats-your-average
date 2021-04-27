@@ -17,19 +17,23 @@ const App = () => {
       <Fonts />
       <Box
         m="0 auto"
-        width="3550px"
+        width="3450px"
         fontFamily="Helvetica Neue, sans-serif"
         fontWeight={500}
         textAlign="center"
         color="white"
         height="100vh"
       >
-        <Textfit mode="single" max={3400}>
-          ${window.ticker}
-        </Textfit>
-        <Textfit mode="single" max={3400}>
-          {window.average} AVG
-        </Textfit>
+        <Heading fontWeight={600} lineHeight="60rem">
+          <Textfit mode="single" max={1300}>
+            ${window.ticker}
+          </Textfit>
+        </Heading>
+        <Heading fontWeight={600}>
+          <Textfit mode="single" max={1300} lineHeight="60rem">
+            {window.average} AVG
+          </Textfit>
+        </Heading>
       </Box>
     </Box>
   )
