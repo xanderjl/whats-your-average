@@ -14,7 +14,7 @@ const App = () => {
   return (
     <>
       <Fonts />
-      <Box width="100vw" height="100vh">
+      <Box width="97vw" m="0 auto" height="100vh">
         <Heading {...styles}>
           <Textfit mode="single" max={5000}>
             ${window.ticker}

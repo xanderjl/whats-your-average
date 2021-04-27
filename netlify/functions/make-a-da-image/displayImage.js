@@ -15573,7 +15573,8 @@
 
 	var App = function App() {
 	  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Fonts, null), /*#__PURE__*/react.createElement(Box, {
-	    width: "100vw",
+	    width: "97vw",
+	    m: "0 auto",
 	    height: "100vh"
 	  }, /*#__PURE__*/react.createElement(Heading, styles, /*#__PURE__*/react.createElement(Textfit, {
 	    mode: "single",
