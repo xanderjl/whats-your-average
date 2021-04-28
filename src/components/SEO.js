@@ -18,7 +18,6 @@ function SEO({ description, lang, meta, title }) {
       }
     `
   )
-  console.log(ogImage)
   const metaImage = `https://whatsyouraverage.com${ogImage}`
 
   const metaDescription = description || site.siteMetadata.description
