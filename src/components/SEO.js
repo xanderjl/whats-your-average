@@ -18,6 +18,8 @@ function SEO({ description, lang, meta, title }) {
       }
     `
   )
+  console.log(ogImage)
+  const metaImage = `https://whatsyouraverage.com${ogImage}`
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
@@ -60,11 +62,11 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `twitter:image`,
-          content: ogImage,
+          content: metaImage,
         },
         {
           property: `og:image`,
-          content: ogImage,
+          content: metaImage,
         },
         {
           property: "og:image:width",
@@ -76,7 +78,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `image`,
-          content: ogImage,
+          content: metaImage,
         },
         {
           name: `twitter:description`,
