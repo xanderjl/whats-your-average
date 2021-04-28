@@ -41,8 +41,8 @@ exports.handler = async ({ body }) => {
     package_returned: "d-2c67411b633641129df89fbdffaaf9b9",
   }
   const msg = {
-    // to: "alexanderjameslow@gmail.com",
-    to: recipient.email,
+    to: "alexanderjameslow@gmail.com",
+    // to: recipient.email,
     from: process.env.FROM_EMAIL_ADDRESS,
     templateId: templates[type],
     dynamicTemplateData: {
@@ -60,8 +60,16 @@ exports.handler = async ({ body }) => {
   }
 
   if (type === "order_created") {
+    const message = {
+      ...msg,
+      dynamicTemplateData: {
+        ...msg.dynamicTemplateData,
+        subject: `Your order has been created! (noreply)`,
+      },
+    }
+
     await sgMail
-      .send(msg)
+      .send(message)
       .then(res => console.log(res))
       .catch(err => console.error(err))
   } else if (type === "order_canceled" || "order_failed") {
@@ -77,12 +85,13 @@ exports.handler = async ({ body }) => {
       .catch(err => console.error(err))
   } else if (type === "package_shipped") {
     const { shipment } = data
-    const { shipments } = msg.dynamicTemplateData.shipmentsp
+    const { shipments } = msg.dynamicTemplateData
     const message = {
       ...msg,
       dynamicTemplateData: {
-        shipment,
         ...msg.dynamicTemplateData,
+        subject: `Your order ${id} has been shipped`,
+        shipment,
         carrier: shipments.carrier,
         service: shipments.service,
         ship_date: shipments.ship_date,
