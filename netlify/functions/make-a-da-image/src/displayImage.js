@@ -15,7 +15,7 @@ const styles = {
 
 const App = () => {
   return (
-    <Box width="100%" p="0 100px">
+    <Box width="100%" p="0 150px 0 100px">
       <Fonts />
       <Box
         width="100%"
