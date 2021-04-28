@@ -8,8 +8,8 @@ exports.handler = async ({ body }) => {
   let type
   let data
 
-  const test = JSON.parse(body)
-  console.log(JSON.stringify(test, null, 2))
+  // const test = JSON.parse(body)
+  // console.log(JSON.stringify(test, null, 2))
 
   try {
     ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
@@ -40,8 +40,8 @@ exports.handler = async ({ body }) => {
     package_shipped: "d-0552ae85e4a44fb593ca8d1d8ebb63ef",
     package_returned: "d-2c67411b633641129df89fbdffaaf9b9",
   }
+
   const msg = {
-    // to: "alexanderjameslow@gmail.com",
     to: recipient.email,
     from: process.env.FROM_EMAIL_ADDRESS,
     templateId: templates[type],
@@ -72,8 +72,9 @@ exports.handler = async ({ body }) => {
       .send(message)
       .then(res => console.log(res))
       .catch(err => console.error(err))
-  } else if (type === "order_canceled" || "order_failed") {
+  } else if (["order_canceled", "order_failed"].includes(type)) {
     const { reason } = data
+
     const message = {
       ...msg,
       dynamicTemplateData: { ...msg.dynamicTemplateData, reason },
@@ -85,29 +86,33 @@ exports.handler = async ({ body }) => {
       .catch(err => console.error(err))
   } else if (type === "package_shipped") {
     const { shipment } = data
+
     const { shipments } = msg.dynamicTemplateData
+
     const message = {
       ...msg,
       dynamicTemplateData: {
         ...msg.dynamicTemplateData,
-        subject: `Your order ${id} has been shipped`,
+        subject: `Your order No. ${id} has been shipped`,
         shipment,
-        carrier: shipments.carrier,
-        service: shipments.service,
-        ship_date: shipments.ship_date,
-        shipped_at: new Date(shipments.shipped_at).getDate("en-US"),
-        location: shipments.location,
-        packing_slip_url: shipments.packing_slip_url,
+        carrier: shipments[0].carrier,
+        service: shipments[0].service,
+        tracking_number: shipments[0].tracking_number,
+        tracking_url: shipments[0].tracking_url,
+        ship_date: shipments[0].ship_date,
+        shipped_at: new Date(shipments[0].shipped_at).toLocaleString(),
+        location: shipments[0].location,
+        packing_slip_url: shipments[0].packing_slip_url,
         estimated_delivery_dates: {
-          from: new Date(shipments.estimated_delivery_dates.from).getDate(
-            "en-CA"
-          ),
-          to: new Date(shipments.estimated_delivery_dates.to).getDate("en-CA"),
+          from: new Date(
+            shipments[0].estimated_delivery_dates.from
+          ).toLocaleString(),
+          to: new Date(
+            shipments[0].estimated_delivery_dates.to
+          ).toLocaleString(),
         },
       },
     }
-
-    console.log(JSON.stringify(message, null, 2))
 
     await sgMail
       .send(message)
@@ -115,6 +120,7 @@ exports.handler = async ({ body }) => {
       .catch(err => console.error(err))
   } else if (type === "package_returned") {
     const { shipment, reason } = data
+
     const message = {
       ...msg,
       dynamicTemplateData: { ...msg.dynamicTemplateData, shipment, reason },
