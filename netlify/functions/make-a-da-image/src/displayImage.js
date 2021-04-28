@@ -1,7 +1,7 @@
 import * as React from "react"
 import { render } from "react-dom"
 import Textfit from "react-textfit"
-import { Box } from "@chakra-ui/layout"
+import { Box, Heading } from "@chakra-ui/layout"
 import Fonts from "./fonts"
 
 const styles = {
@@ -9,6 +9,8 @@ const styles = {
   pb: 0,
   color: "white",
   fontFamily: "Helvetica Neue, sans-serif",
+  fontWeight: 500,
+  lineHeight: "70rem",
 }
 
 const App = () => {
@@ -21,16 +23,15 @@ const App = () => {
         fontFamily="Helvetica Neue, sans-serif"
         fontWeight={500}
         textAlign="center"
-        color="white"
         height="100vh"
       >
-        <Heading fontWeight={600} lineHeight="60rem">
+        <Heading {...styles}>
           <Textfit mode="single" max={1300}>
             ${window.ticker}
           </Textfit>
         </Heading>
-        <Heading fontWeight={600}>
-          <Textfit mode="single" max={1300} lineHeight="60rem">
+        <Heading {...styles}>
+          <Textfit mode="single" max={1300}>
             {window.average} AVG
           </Textfit>
         </Heading>
