@@ -15,11 +15,11 @@ const styles = {
 
 const App = () => {
   return (
-    <Box width="3600px">
+    <Box width="100%">
       <Fonts />
       <Box
         m="0 auto"
-        width="3450px"
+        width="100%"
         fontFamily="Helvetica Neue, sans-serif"
         fontWeight={500}
         textAlign="center"
