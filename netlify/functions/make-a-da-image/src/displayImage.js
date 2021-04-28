@@ -15,10 +15,9 @@ const styles = {
 
 const App = () => {
   return (
-    <Box width="100%">
+    <Box width="100%" p="0 100px">
       <Fonts />
       <Box
-        m="0 auto"
         width="100%"
         fontFamily="Helvetica Neue, sans-serif"
         fontWeight={500}

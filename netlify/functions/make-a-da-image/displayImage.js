@@ -15576,9 +15576,9 @@
 
 	var App = function App() {
 	  return /*#__PURE__*/react_11(Box, {
-	    width: "100%"
+	    width: "100%",
+	    p: "0 100px"
 	  }, /*#__PURE__*/react_11(Fonts, null), /*#__PURE__*/react_11(Box, {
-	    m: "0 auto",
 	    width: "100%",
 	    fontFamily: "Helvetica Neue, sans-serif",
 	    fontWeight: 500,
