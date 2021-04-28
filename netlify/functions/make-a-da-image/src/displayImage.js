@@ -10,7 +10,7 @@ const styles = {
   color: "white",
   fontFamily: "Helvetica Neue, sans-serif",
   fontWeight: 500,
-  lineHeight: "70rem",
+  // lineHeight: "70rem",
 }
 
 const App = () => {
