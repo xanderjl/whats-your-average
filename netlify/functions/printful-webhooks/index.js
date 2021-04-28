@@ -8,8 +8,8 @@ exports.handler = async ({ body }) => {
   let type
   let data
 
-  // const test = JSON.parse(body)
-  // console.log(JSON.stringify(test, null, 2))
+  const test = JSON.parse(body)
+  console.log(JSON.stringify(test, null, 2))
 
   try {
     ;({ type, data } = JSON.parse(body)) //re-descture type and data from body (adds that bonkers semicolon)
@@ -41,8 +41,8 @@ exports.handler = async ({ body }) => {
     package_returned: "d-2c67411b633641129df89fbdffaaf9b9",
   }
   const msg = {
-    to: "alexanderjameslow@gmail.com",
-    // to: recipient.email,
+    // to: "alexanderjameslow@gmail.com",
+    to: recipient.email,
     from: process.env.FROM_EMAIL_ADDRESS,
     templateId: templates[type],
     dynamicTemplateData: {
