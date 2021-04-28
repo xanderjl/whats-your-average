@@ -9,7 +9,7 @@ const styles = {
   pb: 0,
   color: "white",
   fontFamily: "Helvetica Neue, sans-serif",
-  fontWeight: 500,
+  fontWeight: 600,
   // lineHeight: "70rem",
 }
 
