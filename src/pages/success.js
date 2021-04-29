@@ -8,12 +8,11 @@ ReactPixel.pageView()
 ReactPixel.fbq("track", "PageView")
 
 const Success = () => {
-  const { clearCart, formattedTotalPrice } = useShoppingCart()
+  const { formattedTotalPrice } = useShoppingCart()
   ReactPixel.track("Purchase", {
     currency: "CAD",
     value: formattedTotalPrice,
   })
-  clearCart()
   return (
     <Layout>
       <Container maxW="container.md">
