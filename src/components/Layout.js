@@ -8,6 +8,14 @@ import Icon from "@chakra-ui/icon"
 import { FaTwitter } from "react-icons/fa"
 import { FiInstagram } from "react-icons/fi"
 import { Link } from "@chakra-ui/layout"
+import ReactPixel from "react-facebook-pixel"
+
+const options = {
+  autoConfig: true,
+  debug: false,
+}
+
+ReactPixel.init(process.env.GATSBY_FACEBOOK_PIXEL_ID, {}, options)
 
 const Layout = ({ children }) => {
   return (

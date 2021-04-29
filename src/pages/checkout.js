@@ -11,11 +11,15 @@ import Link from "@/components/Link"
 import csc from "country-state-city"
 import { useForm } from "react-hook-form"
 import shipping from "@/util/shipping"
+import ReactPixel from "react-facebook-pixel"
 
 const acceptedCountries = ["CA", "US", "AU"]
 const countryInfo = acceptedCountries.map(
   country => csc.getAllCountries().filter(c => c.isoCode === country)[0]
 )
+
+ReactPixel.pageView()
+ReactPixel.fbq("track", "PageView")
 
 const Checkout = () => {
   const [country, setCountry] = useState(acceptedCountries[0])

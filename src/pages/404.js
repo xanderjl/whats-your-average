@@ -1,6 +1,10 @@
 import * as React from "react"
 import Layout from "@/components/Layout"
 import SEO from "@/components/SEO"
+import ReactPixel from "react-facebook-pixel"
+
+ReactPixel.pageView()
+ReactPixel.fbq("track", "PageView")
 
 const NotFoundPage = () => (
   <Layout>
