@@ -48,8 +48,6 @@ exports.handler = async ({ body }) => {
       line_items,
       retail_costs,
     },
-    // variant_id: Object.keys(cartDetails)[0],
-    // quantity: Object.values(cartDetails)[0].quantity,
   })
 
   return {
