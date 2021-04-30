@@ -5,13 +5,13 @@ import PortableText from "@sanity/block-content-to-react"
 import { Container } from "@chakra-ui/layout"
 import SEO from "@/components/SEO"
 import serializers from "@/lib/sanity/serializers"
-import ReactPixel from "react-facebook-pixel"
-
-ReactPixel.pageView()
-ReactPixel.fbq("track", "PageView")
+import fbTrack from "@/util/fbTrack"
 
 const FAQ = ({ data }) => {
   const { title, _rawBody } = data.sanityFaq
+
+  fbTrack("track", "PageView")
+
   return (
     <Layout>
       <SEO title={title} />

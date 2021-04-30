@@ -34,7 +34,7 @@ import {
   inputFieldStyles,
   headingStyles,
 } from "@/lib/indexStyles"
-import ReactPixel from "react-facebook-pixel"
+import fbTrack from "@/util/fbTrack"
 
 const initState = {
   ticker: "WYA",
@@ -71,8 +71,7 @@ const IndexPage = () => {
   const [isLoading, setLoading] = useState(false)
   const { addItem } = useShoppingCart()
 
-  ReactPixel.pageView()
-  ReactPixel.fbq("track", "PageView")
+  fbTrack("track", "PageView")
 
   return (
     <Layout>
@@ -244,7 +243,7 @@ const IndexPage = () => {
                         },
                         parseInt(quantity)
                       )
-                      ReactPixel.track("AddToCart", {
+                      fbTrack("track", "AddToCart", {
                         content_ids: [`${variant_id + size}WYA-SHIRT`],
                         content_name: `Customized t-shirt. Reads: $${ticker} / ${average} AVG`,
                         content_type: "product",

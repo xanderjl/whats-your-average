@@ -2,17 +2,16 @@ import * as React from "react"
 import Layout from "@/components/Layout"
 import { Heading, Container } from "@chakra-ui/react"
 import { useShoppingCart } from "use-shopping-cart"
-import ReactPixel from "react-facebook-pixel"
-
-ReactPixel.pageView()
-ReactPixel.fbq("track", "PageView")
+import fbTrack from "@/util/fbTrack"
 
 const Success = () => {
   const { formattedTotalPrice } = useShoppingCart()
-  ReactPixel.track("Purchase", {
+  fbTrack("track", "PageView")
+  fbTrack("track", "Purchase", {
     currency: "CAD",
     value: formattedTotalPrice,
   })
+
   return (
     <Layout>
       <Container maxW="container.md">

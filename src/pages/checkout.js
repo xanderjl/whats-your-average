@@ -11,15 +11,12 @@ import Link from "@/components/Link"
 import csc from "country-state-city"
 import { useForm } from "react-hook-form"
 import shipping from "@/util/shipping"
-import ReactPixel from "react-facebook-pixel"
+import fbTrack from "@/util/fbTrack"
 
 const acceptedCountries = ["CA", "US", "AU"]
 const countryInfo = acceptedCountries.map(
   country => csc.getAllCountries().filter(c => c.isoCode === country)[0]
 )
-
-ReactPixel.pageView()
-ReactPixel.fbq("track", "PageView")
 
 const Checkout = () => {
   const [country, setCountry] = useState(acceptedCountries[0])
@@ -35,6 +32,8 @@ const Checkout = () => {
     formState: { errors },
   } = useForm()
 
+  fbTrack("track", "PageView")
+
   const countryHandler = e => {
     const stateVal = csc.getStatesOfCountry(e.target.value)[0].isoCode
     setValue("country", e.target.value)
@@ -48,7 +47,6 @@ const Checkout = () => {
   }
 
   const onSubmit = async values => {
-    console.log(values)
     try {
       const subtotal = (totalPrice / 100).toFixed(2)
       const shipping = (addedShipping / 100).toFixed(2)

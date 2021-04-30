@@ -39,7 +39,12 @@ module.exports = {
         dataset: process.env.GATSBY_SANITY_DATASET,
       },
     },
-    `gatsby-plugin-gatsby-cloud`,
+    {
+      resolve: `gatsby-plugin-facebook-pixel`,
+      options: {
+        pixelId: process.env.GATSBY_FACEBOOK_PIXEL_ID,
+      },
+    },
     {
       resolve: `@chakra-ui/gatsby-plugin`,
       options: {

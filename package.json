@@ -18,7 +18,7 @@
     "dom-to-image": "^2.6.0",
     "framer-motion": "^4",
     "gatsby": "^3.1.2",
-    "gatsby-plugin-gatsby-cloud": "^2.1.0",
+    "gatsby-plugin-facebook-pixel": "^1.0.5",
     "gatsby-plugin-image": "^1.1.2",
     "gatsby-plugin-manifest": "^3.1.0",
     "gatsby-plugin-offline": "^4.1.0",
