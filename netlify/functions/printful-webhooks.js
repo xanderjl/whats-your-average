@@ -87,30 +87,27 @@ exports.handler = async ({ body }) => {
   } else if (type === "package_shipped") {
     const { shipment } = data
 
-    const { shipments } = msg.dynamicTemplateData
-
     const message = {
       ...msg,
       dynamicTemplateData: {
         ...msg.dynamicTemplateData,
         subject: `Your order No. ${id} has been shipped`,
-        shipment,
-        carrier: shipments[0].carrier,
-        service: shipments[0].service,
-        tracking_number: shipments[0].tracking_number,
-        tracking_url: shipments[0].tracking_url,
-        ship_date: shipments[0].ship_date,
-        shipped_at: new Date(shipments[0].shipped_at).toLocaleString(),
-        location: shipments[0].location,
-        packing_slip_url: shipments[0].packing_slip_url,
-        estimated_delivery_dates: {
-          from: new Date(
-            shipments[0].estimated_delivery_dates.from
-          ).toLocaleString(),
-          to: new Date(
-            shipments[0].estimated_delivery_dates.to
-          ).toLocaleString(),
-        },
+        carrier: shipment.carrier,
+        service: shipment.service,
+        tracking_number: shipment.tracking_number,
+        tracking_url: shipment.tracking_url,
+        ship_date: shipment.ship_date,
+        shipped_at: new Date(shipment.shipped_at).toLocaleString(),
+        location: shipment.location,
+        packing_slip_url: shipment.packing_slip_url,
+        // estimated_delivery_dates: {
+        //   from: new Date(
+        //     shipments[0].estimated_delivery_dates.from
+        //   ).toLocaleString(),
+        //   to: new Date(
+        //     shipments[0].estimated_delivery_dates.to
+        //   ).toLocaleString(),
+        // },
       },
     }
 
