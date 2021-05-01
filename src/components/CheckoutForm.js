@@ -12,7 +12,6 @@ import {
   Stack,
   VStack,
 } from "@chakra-ui/react"
-import csc from "country-state-city"
 
 const formLabelStyles = {
   flex: 1,
@@ -27,7 +26,9 @@ const inputStyles = {
 
 const CheckoutForm = ({
   country,
+  countries,
   state,
+  states,
   countryHandler,
   stateHandler,
   countryInfo,
@@ -112,7 +113,7 @@ const CheckoutForm = ({
             {...register("state", { required: true })}
             onChange={stateHandler}
           >
-            {csc.getStatesOfCountry(country).map((state, i) => {
+            {states[country].map((state, i) => {
               const { name, isoCode } = state
               return (
                 <Box key={i} as="option" value={isoCode} color="black">

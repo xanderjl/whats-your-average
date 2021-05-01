@@ -8,18 +8,14 @@ import CheckoutForm from "@/components/CheckoutForm"
 import OrderSummaryTable from "@/components/OrderSummaryTable"
 import SEO from "@/components/SEO"
 import Link from "@/components/Link"
-import csc from "country-state-city"
 import { useForm } from "react-hook-form"
 import shipping from "@/util/shipping"
 import fbTrack from "@/util/fbTrack"
-
-const acceptedCountries = ["CA", "US", "AU"]
-const countryInfo = acceptedCountries.map(
-  country => csc.getAllCountries().filter(c => c.isoCode === country)[0]
-)
+import countries from "@/lib/countries.json"
+import states from "@/lib/states.json"
 
 const Checkout = () => {
-  const [country, setCountry] = useState(acceptedCountries[0])
+  const [country, setCountry] = useState("CA")
   const [state, setState] = useState("")
   const [loading, setLoading] = useState(false)
   const stripe = useStripe()
@@ -31,11 +27,12 @@ const Checkout = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
+  const countryInfo = countries[country]
 
   fbTrack("track", "PageView")
 
   const countryHandler = e => {
-    const stateVal = csc.getStatesOfCountry(e.target.value)[0].isoCode
+    const stateVal = states[e.target.value][0].isoCode
     setValue("country", e.target.value)
     setCountry(e.target.value)
     setValue("state", stateVal)
@@ -143,7 +140,9 @@ const Checkout = () => {
             {cartCount > 0 ? (
               <CheckoutForm
                 country={country}
+                countries={countries}
                 state={state}
+                states={states}
                 countryHandler={countryHandler}
                 stateHandler={stateHandler}
                 countryInfo={countryInfo}
