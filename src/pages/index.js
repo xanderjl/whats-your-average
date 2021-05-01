@@ -80,7 +80,7 @@ const IndexPage = () => {
         <Heading as="h1" size="2xl" textAlign="center" pb="1rem">
           WHAT'S YOUR AVERAGE?
         </Heading>
-        <VStack align="center" spacing={24}>
+        <VStack align="center" spacing={{ base: 4, md: 24 }}>
           <VStack align="flex-start" spacing={1}>
             <Flex {...inputFieldStyles}>
               <Text {...headingStyles}>TICKER:</Text>
