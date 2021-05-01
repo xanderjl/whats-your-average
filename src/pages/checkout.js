@@ -28,6 +28,7 @@ const Checkout = () => {
     formState: { errors },
   } = useForm()
   const countryInfo = countries[country]
+  console.log({ countries })
 
   fbTrack("track", "PageView")
 

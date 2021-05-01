@@ -42,6 +42,7 @@ const CheckoutForm = ({
   stripe,
   ...rest
 }) => {
+  const countryOptions = Object.values(countries)
   return (
     <VStack
       as="form"
@@ -91,7 +92,7 @@ const CheckoutForm = ({
             {...register("country", { required: true })}
             onChange={countryHandler}
           >
-            {countryInfo.map((country, i) => {
+            {countryOptions.map((country, i) => {
               const { name, isoCode } = country
               return (
                 <Box key={i} as="option" value={isoCode} color="black">
