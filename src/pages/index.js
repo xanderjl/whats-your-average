@@ -135,7 +135,7 @@ const IndexPage = () => {
                 <StaticImage
                   src="../images/t-shirt.png"
                   alt={`Custom "What's Your Average" t-shirt.`}
-                  layout="fixed"
+                  layout="constrained"
                   placeholder="blurred"
                   width={400}
                 />
@@ -190,6 +190,10 @@ const IndexPage = () => {
                   variant="outline"
                   fontSize="xl"
                   fontWeight={600}
+                  _loading={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={async () => {
                     try {
                       setLoading(true)
