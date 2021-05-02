@@ -2,22 +2,22 @@ export const tickerStyles = ticker => {
   switch (ticker.length) {
     case 4:
       return {
-        fontSize: "48px",
+        fontSize: { base: "28px", md: "48px" },
         y: 18,
       }
     case 3:
       return {
-        fontSize: "56px",
+        fontSize: { base: "38px", md: "56px" },
         y: 24,
       }
     case 2:
       return {
-        fontSize: "64px",
+        fontSize: { base: "52px", md: "64px" },
         y: 26,
       }
     default:
       return {
-        fontSize: "72px",
+        fontSize: { base: "68px", md: "72px" },
         y: 32,
       }
   }
@@ -27,21 +27,21 @@ export const averageStyles = average => {
   switch (average.length) {
     case 7:
       return {
-        fontSize: "30px",
+        fontSize: { base: "20px", md: "30px" },
       }
     case 6:
       return {
-        fontSize: "32px",
+        fontSize: { base: "22px", md: "32px" },
         y: 34,
       }
     case 5:
       return {
-        fontSize: "34px",
+        fontSize: { base: "24px", md: "34px" },
         y: 36,
       }
     default:
       return {
-        fontSize: "38px",
+        fontSize: { base: "20px", md: "38px" },
         y: 26,
       }
   }
