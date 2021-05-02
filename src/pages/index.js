@@ -194,6 +194,18 @@ const IndexPage = () => {
                     bg: "white",
                     color: "black",
                   }}
+                  _hover={{
+                    bg: "white",
+                    color: "black",
+                  }}
+                  _focus={{
+                    bg: "white",
+                    color: "black",
+                  }}
+                  _disabled={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={async () => {
                     try {
                       setLoading(true)

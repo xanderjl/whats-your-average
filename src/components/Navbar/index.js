@@ -18,7 +18,15 @@ const Navbar = () => {
   const { cartCount } = useShoppingCart()
   return (
     <Flex>
-      <Container maxW="container.xl">
+      <Container
+        bg="black"
+        zIndex={11}
+        position="fixed"
+        flex={1}
+        maxW="container.xl"
+        left="50%"
+        transform="translateX(-50%)"
+      >
         <Flex direction={{ base: "column", md: "row" }} justify="space-between">
           <Flex justify="space-between" align="center">
             <Link to="/">
