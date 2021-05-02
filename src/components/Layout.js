@@ -15,7 +15,12 @@ const Layout = ({ children }) => {
       <Fonts />
       <Flex direction="column" minW="100%" minH="100vh">
         <Navbar />
-        <Box as="main" flex={1} p={{ base: "3rem 1.25rem", md: "9rem 3rem" }}>
+        <Box
+          as="main"
+          flex={1}
+          p={{ base: "3rem 1.25rem", md: "9rem 3rem" }}
+          mt="75px"
+        >
           {children}
         </Box>
         <Flex direction="column" as="footer" align="center" justify="center">
